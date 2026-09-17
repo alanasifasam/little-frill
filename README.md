@@ -5,6 +5,7 @@ You can access the live application here: [**View the application**](https://bra
 > **Note:** The backend is hosted on Azure using a free-tier plan and may be temporarily offline. If the application is unavailable, please contact the creator to have the backend started.
 
 Front: https://brave-grass-0a0f0f51e.3.azurestaticapps.net/
+
 back:https://littlefrill-deckh4fde0fuckha.westus3-01.azurewebsites.net/
 
 
