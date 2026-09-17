@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 240 240" role="img" aria-label="Sem fotografia">
+  <rect width="240" height="240" fill="#f3ede9"/>
+  <rect x="40" y="60" width="160" height="120" rx="6" fill="none" stroke="#c9bfb6" stroke-width="4"/>
+  <circle cx="82" cy="98" r="14" fill="none" stroke="#c9bfb6" stroke-width="4"/>
+  <path d="M40 164 L92 122 L128 150 L160 118 L200 152 L200 180 L40 180 Z" fill="#c9bfb6"/>
+  <line x1="52" y1="72" x2="188" y2="168" stroke="#c9bfb6" stroke-width="4"/>
+</svg>

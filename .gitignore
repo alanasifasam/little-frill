@@ -1,0 +1,22 @@
+# segredos — nunca committar
+.env
+.env.*
+!.env.example
+
+# .NET
+backend/**/bin/
+backend/**/obj/
+
+# Node / Vite
+frontend/node_modules/
+frontend/dist/
+frontend/dist-ssr/
+
+# editores / SO
+.vs/
+.vscode/*
+!.vscode/extensions.json
+.idea/
+.DS_Store
+Thumbs.db
+*.log

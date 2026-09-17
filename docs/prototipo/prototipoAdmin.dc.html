@@ -1,0 +1,1488 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="stylesheet" href="_ds/broadsheet-98a61f7d-6643-493e-973b-8befe0382739/styles.css">
+<script src="./image-slot.js"></script>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,600;0,8..60,700;1,8..60,400&display=swap">
+<style>
+:root{
+  --color-bg:#fdf8f4; --color-surface:#fbeee6; --color-text:#3b2a31;
+  --color-divider:color-mix(in srgb,#3b2a31 14%,transparent);
+  --color-accent:#c2668a; --color-accent-2:#8873c2;
+  --color-accent-100:#fdeef3; --color-accent-200:#fadbe6; --color-accent-300:#f5bfd2;
+  --color-accent-400:#e69ab5; --color-accent-500:#d4799a; --color-accent-600:#b25679;
+  --color-accent-700:#994665; --color-accent-800:#7a3751; --color-accent-900:#4f2334;
+  --color-accent-2-100:#f3f0fc; --color-accent-2-200:#e6e0f8; --color-accent-2-300:#d2c7f0;
+  --color-accent-2-400:#b7a6e4; --color-accent-2-700:#65529a; --color-accent-2-800:#4e3f78; --color-accent-2-900:#332a4f;
+  --ruffle-op:1;
+}
+body{margin:0;background:var(--color-bg);color:var(--color-text);font-family:var(--font-body);}
+a{color:var(--color-accent-700);text-underline-offset:3px;}
+a:hover{color:var(--color-accent-800);}
+</style>
+</helmet>
+
+<template id="__bundler_thumbnail"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 120"><rect width="120" height="120" fill="#fbdce6"/><g fill="#c2668a"><rect x="26" y="66" width="12" height="26"/><rect x="46" y="52" width="12" height="40"/><rect x="66" y="36" width="12" height="56"/><rect x="86" y="58" width="12" height="34"/><rect x="24" y="26" width="52" height="5"/></g></svg></template>
+
+<div ref="{{ rootRef }}" style="min-height:100vh;display:flex;flex-direction:column;background:var(--color-bg)">
+
+  <div style="border-bottom:3px solid var(--color-text)">
+    <div style="max-width:1240px;margin:0 auto;padding:var(--space-6) var(--space-6) 0;width:100%;box-sizing:border-box">
+      <div style="display:flex;align-items:flex-end;gap:var(--space-4)">
+        <div>
+          <div style="font-family:var(--font-heading);font-weight:700;font-size:28px;line-height:1;letter-spacing:-0.02em;font-style:italic">Little Frill</div>
+          <div style="font-size:11px;letter-spacing:0.14em;text-transform:uppercase;color:var(--color-accent-700);margin-top:4px">by Arrais · administração do ateliê</div>
+        </div>
+        <div style="margin-left:auto;text-align:right">
+          <div style="font-size:13px;color:color-mix(in srgb,var(--color-text) 60%,transparent)">{{ hoje }}</div>
+          <div style="font-size:13px;color:color-mix(in srgb,var(--color-text) 60%,transparent)">Maria Arrais · ateliê Lisboa</div>
+        </div>
+      </div>
+      <div style="display:flex;gap:var(--space-4);margin-top:var(--space-4);border-top:1px solid var(--color-divider);padding-top:var(--space-3)">
+        <sc-for list="{{ abas }}" as="t" hint-placeholder-count="4">
+          <a onClick="{{ t.pick }}" aria-current="{{ t.cur }}" style="cursor:pointer;font-size:15px;font-weight:{{ t.peso }};color:{{ t.cor }};padding-bottom:var(--space-3);box-shadow:inset 0 -3px 0 {{ t.marca }};text-decoration:none">{{ t.label }}</a>
+        </sc-for>
+      </div>
+    </div>
+  </div>
+
+  <div style="max-width:1240px;margin:0 auto;padding:var(--space-6);width:100%;box-sizing:border-box;flex:1">
+
+    <sc-if value="{{ isPainel }}" hint-placeholder-val="{{ true }}">
+      <div>
+        <h1 style="font-size:46px;margin:var(--space-2) 0 var(--space-2);letter-spacing:-0.025em;font-family:var(--font-heading);font-weight:700">O mês em curso</h1>
+        <p style="font-size:17px;color:color-mix(in srgb,var(--color-text) 72%,transparent);max-width:38em">{{ resumoMes }}</p>
+        <p style="font-size:15px;color:var(--color-accent-700);margin-top:var(--space-2);display:{{ feriasShow }}">{{ feriasAviso }}</p>
+
+        <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:var(--space-6);margin-top:var(--space-6)">
+          <div>
+            <div style="font-size:12px;letter-spacing:0.12em;text-transform:uppercase;color:color-mix(in srgb,var(--color-text) 55%,transparent)">Vendas do mês</div>
+            <div style="font-family:var(--font-heading);font-weight:700;font-size:38px;letter-spacing:-0.02em;margin-top:var(--space-1)">{{ vendasMesFmt }}</div>
+            <div style="font-size:13px;color:var(--color-accent-700)">{{ vsMetaTexto }}</div>
+          </div>
+          <div>
+            <div style="font-size:12px;letter-spacing:0.12em;text-transform:uppercase;color:color-mix(in srgb,var(--color-text) 55%,transparent)">Caixa de hoje</div>
+            <div style="font-family:var(--font-heading);font-weight:700;font-size:38px;letter-spacing:-0.02em;margin-top:var(--space-1)">{{ caixaHojeFmt }}</div>
+            <div style="font-size:13px;color:color-mix(in srgb,var(--color-text) 60%,transparent)">{{ vendasHojeTexto }}</div>
+          </div>
+          <div>
+            <div style="font-size:12px;letter-spacing:0.12em;text-transform:uppercase;color:color-mix(in srgb,var(--color-text) 55%,transparent)">Lucro do mês</div>
+            <div style="font-family:var(--font-heading);font-weight:700;font-size:38px;letter-spacing:-0.02em;margin-top:var(--space-1);color:{{ lucroCor }}">{{ lucroFmt }}</div>
+            <div style="font-size:13px;color:color-mix(in srgb,var(--color-text) 60%,transparent)">margem de {{ margemPct }}</div>
+          </div>
+          <div>
+            <div style="font-size:12px;letter-spacing:0.12em;text-transform:uppercase;color:color-mix(in srgb,var(--color-text) 55%,transparent)">Peças em stock</div>
+            <div style="font-family:var(--font-heading);font-weight:700;font-size:38px;letter-spacing:-0.02em;margin-top:var(--space-1)">{{ stockTotal }}</div>
+            <div style="font-size:13px;color:var(--color-accent-700)">{{ stockAlertaTexto }}</div>
+          </div>
+        </div>
+
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:var(--space-8);margin-top:var(--space-8)">
+          <div>
+            <div style="display:flex;align-items:baseline;justify-content:space-between">
+              <div style="font-size:12px;letter-spacing:0.12em;text-transform:uppercase;color:color-mix(in srgb,var(--color-text) 55%,transparent)">Meta de {{ mesNome }}</div>
+              <div style="font-size:13px;color:color-mix(in srgb,var(--color-text) 60%,transparent)">{{ metaFmt }}</div>
+            </div>
+            <div style="height:22px;background:var(--color-surface);margin-top:var(--space-3);position:relative">
+              <div style="height:100%;width:{{ metaPctW }};background:var(--color-accent)"></div>
+              <div style="position:absolute;top:0;bottom:0;left:{{ ritmoPctW }};width:2px;background:var(--color-text)"></div>
+            </div>
+            <div style="display:flex;justify-content:space-between;font-size:13px;margin-top:var(--space-2)">
+              <span>{{ metaPct }} da meta</span>
+              <span style="color:color-mix(in srgb,var(--color-text) 60%,transparent)">risco preto = ritmo necessário hoje</span>
+            </div>
+            <p style="font-size:15px;line-height:1.5;margin-top:var(--space-4)">{{ projecaoTexto }}</p>
+          </div>
+
+          <div>
+            <div style="font-size:12px;letter-spacing:0.12em;text-transform:uppercase;color:color-mix(in srgb,var(--color-text) 55%,transparent)">Caixa dos últimos 10 dias</div>
+            <div style="display:flex;align-items:flex-end;gap:6px;height:150px;margin-top:var(--space-3)">
+              <sc-for list="{{ barras }}" as="b" hint-placeholder-count="10">
+                <div style="flex:1;display:flex;flex-direction:column;justify-content:flex-end;height:100%">
+                  <div style="font-size:11px;text-align:center;color:color-mix(in srgb,var(--color-text) 55%,transparent);margin-bottom:4px">{{ b.valorCurto }}</div>
+                  <div style="height:{{ b.altura }};background:{{ b.cor }}"></div>
+                  <div style="font-size:11px;text-align:center;margin-top:6px;color:color-mix(in srgb,var(--color-text) 60%,transparent)">{{ b.dia }}</div>
+                </div>
+              </sc-for>
+            </div>
+          </div>
+        </div>
+
+        <div style="height:14px;opacity:var(--ruffle-op);background:radial-gradient(circle at 12px -2px,transparent 11px,var(--color-accent-200) 11px) 0 0/24px 14px repeat-x;margin:var(--space-8) 0 var(--space-6)"></div>
+
+        <div style="display:grid;grid-template-columns:1.3fr 1fr;gap:var(--space-8)">
+          <div>
+            <div style="font-size:12px;letter-spacing:0.12em;text-transform:uppercase;color:color-mix(in srgb,var(--color-text) 55%,transparent);margin-bottom:var(--space-3)">Últimos movimentos</div>
+            <table class="table" style="width:100%">
+              <thead><tr><th style="text-align:left">Dia</th><th style="text-align:left">Movimento</th><th style="text-align:left">Peça</th><th style="text-align:right">Qt.</th><th style="text-align:right">Valor</th></tr></thead>
+              <tbody>
+                <sc-for list="{{ diario }}" as="m" hint-placeholder-count="6">
+                  <tr>
+                    <td style="white-space:nowrap">{{ m.dia }}</td>
+                    <td><span class="tag {{ m.variant }}">{{ m.tipoLabel }}</span></td>
+                    <td>{{ m.peca }}</td>
+                    <td style="text-align:right;white-space:nowrap">{{ m.qty }}</td>
+                    <td style="text-align:right;white-space:nowrap;color:{{ m.cor }}">{{ m.valorFmt }}</td>
+                  </tr>
+                </sc-for>
+              </tbody>
+            </table>
+          </div>
+          <div>
+            <div style="font-size:12px;letter-spacing:0.12em;text-transform:uppercase;color:color-mix(in srgb,var(--color-text) 55%,transparent);margin-bottom:var(--space-3)">A precisar de atenção</div>
+            <sc-for list="{{ alertas }}" as="a" hint-placeholder-count="3">
+              <div style="padding:var(--space-3) 0;border-bottom:1px solid var(--color-divider)">
+                <div style="display:flex;align-items:center;gap:var(--space-3)">
+                  <div style="width:38px;height:38px;flex:none;background:{{ a.swatch }}"></div>
+                  <div>
+                    <div style="font-family:var(--font-heading);font-weight:600;font-size:16px">{{ a.nome }}</div>
+                    <div style="font-size:13px;color:var(--color-accent-700)">{{ a.nota }}</div>
+                  </div>
+                </div>
+              </div>
+            </sc-for>
+            <p style="font-size:14px;color:color-mix(in srgb,var(--color-text) 62%,transparent);margin-top:var(--space-3)">{{ alertasVazioTexto }}</p>
+          </div>
+        </div>
+      </div>
+    </sc-if>
+
+    <sc-if value="{{ isStock }}">
+      <div>
+        <h1 style="font-size:46px;margin:var(--space-2) 0 var(--space-2);letter-spacing:-0.025em;font-family:var(--font-heading);font-weight:700">Stock</h1>
+        <p style="font-size:17px;color:color-mix(in srgb,var(--color-text) 72%,transparent);max-width:38em">Entradas quando termina uma fornada; saídas para quebras, amostras e presentes. As vendas descontam sozinhas.</p>
+
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:var(--space-8);margin-top:var(--space-6);align-items:start">
+          <div>
+            <div style="font-size:12px;letter-spacing:0.12em;text-transform:uppercase;color:var(--color-accent-700);margin-bottom:var(--space-3)">Registar movimento</div>
+            <div class="field"><label>Peça</label>
+              <select class="input" value="{{ formProd }}" onChange="{{ setFormProd }}">
+                <sc-for list="{{ opcoes }}" as="p" hint-placeholder-count="6">
+                  <option value="{{ p.id }}">{{ p.label }}</option>
+                </sc-for>
+              </select>
+            </div>
+            <div style="display:grid;grid-template-columns:1fr 1fr;gap:var(--space-3);margin-top:var(--space-3)">
+              <div class="field"><label>Quantidade</label><input class="input" type="number" min="1" value="{{ formQty }}" onChange="{{ setFormQty }}"></div>
+              <div class="field"><label>Motivo da saída</label>
+                <select class="input" value="{{ formMotivo }}" onChange="{{ setFormMotivo }}">
+                  <option value="quebra">Quebra ou defeito</option>
+                  <option value="amostra">Amostra ou feira</option>
+                  <option value="presente">Presente</option>
+                </select>
+              </div>
+            </div>
+            <div style="display:flex;gap:var(--space-2);margin-top:var(--space-4)">
+              <button class="btn btn-primary" onClick="{{ addEntrada }}" style="cursor:pointer">Entrada de stock</button>
+              <button class="btn btn-secondary" onClick="{{ addSaida }}" style="cursor:pointer">Saída de stock</button>
+              <button class="btn btn-secondary" onClick="{{ addVenda }}" style="cursor:pointer">Registar venda</button>
+            </div>
+            <p style="font-size:14px;color:var(--color-accent-700);margin-top:var(--space-3);min-height:1.5em">{{ aviso }}</p>
+            <p style="font-size:14px;color:color-mix(in srgb,var(--color-text) 62%,transparent);line-height:1.5">Uma entrada soma ao stock e ao custo de materiais do mês. Uma venda desconta do stock e entra na caixa de hoje.</p>
+          </div>
+
+          <div>
+            <div style="font-size:12px;letter-spacing:0.12em;text-transform:uppercase;color:color-mix(in srgb,var(--color-text) 55%,transparent);margin-bottom:var(--space-3)">Movimentos de {{ mesNome }}</div>
+            <table class="table" style="width:100%">
+              <thead><tr><th style="text-align:left">Dia</th><th style="text-align:left">Tipo</th><th style="text-align:left">Peça</th><th style="text-align:right">Qt.</th></tr></thead>
+              <tbody>
+                <sc-for list="{{ movimentos }}" as="mv" hint-placeholder-count="8">
+                  <tr>
+                    <td style="white-space:nowrap">{{ mv.dia }}</td>
+                    <td><span class="tag {{ mv.variant }}">{{ mv.tipoLabel }}</span></td>
+                    <td>{{ mv.peca }}</td>
+                    <td style="text-align:right;white-space:nowrap">{{ mv.qty }}</td>
+                  </tr>
+                </sc-for>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <div style="height:14px;opacity:var(--ruffle-op);background:radial-gradient(circle at 12px -2px,transparent 11px,var(--color-accent-200) 11px) 0 0/24px 14px repeat-x;margin:var(--space-8) 0 var(--space-6)"></div>
+
+        <div style="display:flex;align-items:baseline;justify-content:space-between">
+          <div style="font-size:12px;letter-spacing:0.12em;text-transform:uppercase;color:color-mix(in srgb,var(--color-text) 55%,transparent)">Inventário</div>
+          <div style="font-size:15px">Valor em materiais: <strong>{{ valorStockFmt }}</strong></div>
+        </div>
+        <table class="table" style="width:100%;margin-top:var(--space-3)">
+          <thead>
+            <tr>
+              <th style="text-align:left">Peça</th><th style="text-align:left">Tecido</th>
+              <th style="text-align:right">Custo</th><th style="text-align:right">Preço</th><th style="text-align:right">Margem</th>
+              <th style="text-align:right">Entradas</th><th style="text-align:right">Saídas</th><th style="text-align:right">Vendidas</th>
+              <th style="text-align:right">Stock</th><th style="text-align:left">Aviso</th>
+            </tr>
+          </thead>
+          <tbody>
+            <sc-for list="{{ inventario }}" as="p" hint-placeholder-count="8">
+              <tr>
+                <td style="font-family:var(--font-heading);font-weight:600">{{ p.nome }}</td>
+                <td style="color:color-mix(in srgb,var(--color-text) 62%,transparent)">{{ p.tecido }}</td>
+                <td style="text-align:right">{{ p.custoFmt }}</td>
+                <td style="text-align:right">{{ p.precoFmt }}</td>
+                <td style="text-align:right;color:var(--color-accent-700)">{{ p.margemFmt }}</td>
+                <td style="text-align:right">{{ p.entradas }}</td>
+                <td style="text-align:right">{{ p.saidas }}</td>
+                <td style="text-align:right">{{ p.vendidas }}</td>
+                <td style="text-align:right;font-weight:600">{{ p.stock }}</td>
+                <td><span class="tag {{ p.avisoVariant }}" style="display:{{ p.avisoShow }}">{{ p.aviso }}</span></td>
+              </tr>
+            </sc-for>
+          </tbody>
+        </table>
+      </div>
+    </sc-if>
+
+    <sc-if value="{{ isVendas }}">
+      <div>
+        <h1 style="font-size:46px;margin:var(--space-2) 0 var(--space-2);letter-spacing:-0.025em;font-family:var(--font-heading);font-weight:700">Vendas e caixa</h1>
+        <p style="font-size:17px;color:color-mix(in srgb,var(--color-text) 72%,transparent);max-width:38em">{{ vendasResumo }}</p>
+
+        <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:var(--space-6);margin-top:var(--space-6)">
+          <div>
+            <div style="font-size:12px;letter-spacing:0.12em;text-transform:uppercase;color:color-mix(in srgb,var(--color-text) 55%,transparent)">Encomendas do mês</div>
+            <div style="font-family:var(--font-heading);font-weight:700;font-size:34px;margin-top:var(--space-1)">{{ nVendas }}</div>
+          </div>
+          <div>
+            <div style="font-size:12px;letter-spacing:0.12em;text-transform:uppercase;color:color-mix(in srgb,var(--color-text) 55%,transparent)">Peças vendidas</div>
+            <div style="font-family:var(--font-heading);font-weight:700;font-size:34px;margin-top:var(--space-1)">{{ nPecas }}</div>
+          </div>
+          <div>
+            <div style="font-size:12px;letter-spacing:0.12em;text-transform:uppercase;color:color-mix(in srgb,var(--color-text) 55%,transparent)">Talão médio</div>
+            <div style="font-family:var(--font-heading);font-weight:700;font-size:34px;margin-top:var(--space-1)">{{ talaoFmt }}</div>
+          </div>
+          <div>
+            <div style="font-size:12px;letter-spacing:0.12em;text-transform:uppercase;color:color-mix(in srgb,var(--color-text) 55%,transparent)">Melhor dia</div>
+            <div style="font-family:var(--font-heading);font-weight:700;font-size:34px;margin-top:var(--space-1)">{{ melhorDiaFmt }}</div>
+            <div style="font-size:13px;color:color-mix(in srgb,var(--color-text) 60%,transparent)">{{ melhorDiaTexto }}</div>
+          </div>
+        </div>
+
+        <div style="display:grid;grid-template-columns:1.25fr 1fr;gap:var(--space-8);margin-top:var(--space-8);align-items:start">
+          <div>
+            <div style="font-size:12px;letter-spacing:0.12em;text-transform:uppercase;color:color-mix(in srgb,var(--color-text) 55%,transparent);margin-bottom:var(--space-3)">Caixa dia a dia</div>
+            <table class="table" style="width:100%">
+              <thead><tr><th style="text-align:left">Dia</th><th style="text-align:left">Encomendas</th><th style="text-align:right">Peças</th><th style="text-align:right">Caixa</th><th style="text-align:left"></th></tr></thead>
+              <tbody>
+                <sc-for list="{{ caixaDias }}" as="d" hint-placeholder-count="8">
+                  <tr>
+                    <td style="font-family:var(--font-heading);font-weight:600">{{ d.dia }}</td>
+                    <td>{{ d.refs }}</td>
+                    <td style="text-align:right">{{ d.pecas }}</td>
+                    <td style="text-align:right">{{ d.totalFmt }}</td>
+                    <td><div style="height:8px;width:{{ d.barra }};background:var(--color-accent-300)"></div></td>
+                  </tr>
+                </sc-for>
+              </tbody>
+            </table>
+          </div>
+          <div>
+            <div style="font-size:12px;letter-spacing:0.12em;text-transform:uppercase;color:color-mix(in srgb,var(--color-text) 55%,transparent);margin-bottom:var(--space-3)">Peças mais vendidas</div>
+            <sc-for list="{{ ranking }}" as="r" hint-placeholder-count="5">
+              <div style="padding:var(--space-2) 0;border-bottom:1px solid var(--color-divider)">
+                <div style="display:flex;align-items:center;gap:var(--space-3)">
+                  <div style="width:34px;height:34px;flex:none;background:{{ r.swatch }}"></div>
+                  <div style="flex:1">
+                    <div style="display:flex;justify-content:space-between;font-size:15px">
+                      <span style="font-family:var(--font-heading);font-weight:600">{{ r.nome }}</span>
+                      <span>{{ r.qty }}</span>
+                    </div>
+                    <div style="height:6px;background:var(--color-surface);margin-top:5px"><div style="height:100%;width:{{ r.barra }};background:var(--color-accent)"></div></div>
+                  </div>
+                </div>
+              </div>
+            </sc-for>
+          </div>
+        </div>
+      </div>
+    </sc-if>
+
+    <sc-if value="{{ isFinanceiro }}">
+      <div>
+        <h1 style="font-size:46px;margin:var(--space-2) 0 var(--space-2);letter-spacing:-0.025em;font-family:var(--font-heading);font-weight:700">Custos, lucro e projeção</h1>
+        <p style="font-size:17px;color:color-mix(in srgb,var(--color-text) 72%,transparent);max-width:38em">{{ financeiroResumo }}</p>
+
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:var(--space-8);margin-top:var(--space-6);align-items:start">
+          <div>
+            <div style="font-size:12px;letter-spacing:0.12em;text-transform:uppercase;color:color-mix(in srgb,var(--color-text) 55%,transparent);margin-bottom:var(--space-3)">Conta do mês</div>
+            <table class="table" style="width:100%">
+              <tbody>
+                <tr><td>Vendas de peças</td><td style="text-align:right;font-weight:600">{{ vendasMesFmt }}</td></tr>
+                <tr><td>Envios cobrados</td><td style="text-align:right">{{ enviosCobradosFmt }}</td></tr>
+                <tr><td style="color:var(--color-accent-800)">Custo dos materiais vendidos</td><td style="text-align:right;color:var(--color-accent-800)">{{ custoMateriaisFmt }}</td></tr>
+                <tr><td style="color:var(--color-accent-800)">Custo real dos envios</td><td style="text-align:right;color:var(--color-accent-800)">{{ custoEnviosFmt }}</td></tr>
+                <sc-for list="{{ fixos }}" as="f" hint-placeholder-count="4">
+                  <tr><td style="color:var(--color-accent-800)">{{ f.label }}</td><td style="text-align:right;color:var(--color-accent-800)">{{ f.valorFmt }}</td></tr>
+                </sc-for>
+                <tr><td style="font-family:var(--font-heading);font-size:18px">Lucro</td><td style="text-align:right;font-family:var(--font-heading);font-size:18px;color:{{ lucroCor }}">{{ lucroFmt }}</td></tr>
+              </tbody>
+            </table>
+            <div style="display:flex;gap:var(--space-6);margin-top:var(--space-4)">
+              <div>
+                <div style="font-size:12px;letter-spacing:0.12em;text-transform:uppercase;color:color-mix(in srgb,var(--color-text) 55%,transparent)">Margem</div>
+                <div style="font-family:var(--font-heading);font-weight:700;font-size:26px">{{ margemPct }}</div>
+              </div>
+              <div>
+                <div style="font-size:12px;letter-spacing:0.12em;text-transform:uppercase;color:color-mix(in srgb,var(--color-text) 55%,transparent)">Ponto de equilíbrio</div>
+                <div style="font-family:var(--font-heading);font-weight:700;font-size:26px">{{ equilibrioFmt }}</div>
+              </div>
+              <div>
+                <div style="font-size:12px;letter-spacing:0.12em;text-transform:uppercase;color:color-mix(in srgb,var(--color-text) 55%,transparent)">Já coberto</div>
+                <div style="font-family:var(--font-heading);font-weight:700;font-size:26px;color:{{ equilibrioCor }}">{{ equilibrioPct }}</div>
+              </div>
+            </div>
+          </div>
+
+          <div>
+            <div style="font-size:12px;letter-spacing:0.12em;text-transform:uppercase;color:color-mix(in srgb,var(--color-text) 55%,transparent);margin-bottom:var(--space-3)">Projeção até fim de {{ mesNome }}</div>
+            <div style="display:flex;align-items:flex-end;gap:var(--space-4)">
+              <div>
+                <div style="font-size:13px;color:color-mix(in srgb,var(--color-text) 60%,transparent)">Vendas previstas</div>
+                <div style="font-family:var(--font-heading);font-weight:700;font-size:38px;letter-spacing:-0.02em">{{ projVendasFmt }}</div>
+              </div>
+              <div>
+                <div style="font-size:13px;color:color-mix(in srgb,var(--color-text) 60%,transparent)">Lucro previsto</div>
+                <div style="font-family:var(--font-heading);font-weight:700;font-size:38px;letter-spacing:-0.02em;color:{{ projLucroCor }}">{{ projLucroFmt }}</div>
+              </div>
+            </div>
+            <p style="font-size:15px;line-height:1.55;margin-top:var(--space-3)">{{ projecaoTexto }}</p>
+
+            <div style="font-size:12px;letter-spacing:0.12em;text-transform:uppercase;color:color-mix(in srgb,var(--color-text) 55%,transparent);margin:var(--space-6) 0 var(--space-3)">Últimos seis meses</div>
+            <div style="display:flex;align-items:flex-end;gap:var(--space-3);height:160px">
+              <sc-for list="{{ historico }}" as="h" hint-placeholder-count="6">
+                <div style="flex:1;display:flex;flex-direction:column;justify-content:flex-end;height:100%">
+                  <div style="font-size:11px;text-align:center;color:color-mix(in srgb,var(--color-text) 55%,transparent);margin-bottom:4px">{{ h.valorCurto }}</div>
+                  <div style="height:{{ h.altura }};background:{{ h.cor }}"></div>
+                  <div style="font-size:12px;text-align:center;margin-top:6px;color:{{ h.labelCor }}">{{ h.mes }}</div>
+                </div>
+              </sc-for>
+            </div>
+            <p style="font-size:14px;color:color-mix(in srgb,var(--color-text) 62%,transparent);margin-top:var(--space-3);line-height:1.5">Barra rosa clara = mês em curso, ainda a contar. Agosto costuma render menos: metade de Lisboa está fora.</p>
+          </div>
+        </div>
+      </div>
+    </sc-if>
+
+    <sc-if value="{{ isCatalogo }}">
+      <div>
+        <div style="display:flex;align-items:flex-end;gap:var(--space-4)">
+          <div>
+            <h1 style="font-size:46px;margin:var(--space-2) 0 var(--space-2);letter-spacing:-0.025em;font-family:var(--font-heading);font-weight:700">Produtos</h1>
+            <p style="font-size:17px;color:color-mix(in srgb,var(--color-text) 72%,transparent);max-width:38em">{{ catalogoResumo }}</p>
+          </div>
+          <button class="btn btn-primary" onClick="{{ novoProd }}" style="cursor:pointer;margin-left:auto">Nova peça</button>
+        </div>
+        <p style="font-size:14px;color:var(--color-accent-700);margin-top:var(--space-2);min-height:1.5em">{{ aviso }}</p>
+
+        <div style="display:{{ editandoShow }};margin-top:var(--space-4);border-left:3px solid var(--color-accent);padding-left:var(--space-4)">
+          <div style="font-size:12px;letter-spacing:0.12em;text-transform:uppercase;color:var(--color-accent-700)">{{ tituloForm }}</div>
+          <div style="display:grid;grid-template-columns:220px 1fr;gap:var(--space-6);margin-top:var(--space-3);align-items:start">
+            <div>
+              <div style="height:180px;background:{{ dSwatch }};position:relative">
+                <image-slot id="{{ dSlotId }}" shape="rect" placeholder="foto da peça"></image-slot>
+              </div>
+              <p style="font-size:13px;color:color-mix(in srgb,var(--color-text) 62%,transparent);margin-top:var(--space-2);line-height:1.45">Arraste a fotografia para cima do padrão. Sem foto, o padrão do tecido serve de imagem na loja.</p>
+            </div>
+            <div>
+              <div style="display:grid;grid-template-columns:2fr 1fr 1fr;gap:var(--space-3)">
+                <div class="field"><label>Nome</label><input class="input" value="{{ d.nome }}" onChange="{{ setNome }}" placeholder="Bolsa Alentejo"></div>
+                <div class="field"><label>Tipo</label>
+                  <select class="input" value="{{ d.tipo }}" onChange="{{ setTipo }}">
+                    <sc-for list="{{ tipos }}" as="tp" hint-placeholder-count="6"><option>{{ tp.label }}</option></sc-for>
+                  </select>
+                </div>
+                <div class="field"><label>Stock inicial</label><input class="input" type="number" min="0" value="{{ d.base }}" onChange="{{ setBase }}"></div>
+              </div>
+              <div style="display:grid;grid-template-columns:1fr 1fr 1fr 1fr;gap:var(--space-3);margin-top:var(--space-3)">
+                <div class="field"><label>Preço (€)</label><input class="input" type="number" min="0" step="0.5" value="{{ d.preco }}" onChange="{{ setPreco }}"></div>
+                <div class="field"><label>Custo (€)</label><input class="input" type="number" min="0" step="0.1" value="{{ d.custo }}" onChange="{{ setCusto }}"></div>
+                <div class="field"><label>Padrão</label>
+                  <select class="input" value="{{ d.padrao }}" onChange="{{ setPadrao }}">
+                    <sc-for list="{{ padroesOpts }}" as="pd" hint-placeholder-count="4"><option value="{{ pd.k }}">{{ pd.label }}</option></sc-for>
+                  </select>
+                </div>
+                <div class="field"><label>Cor</label>
+                  <select class="input" value="{{ d.cor }}" onChange="{{ setCor }}">
+                    <sc-for list="{{ coresOpts }}" as="cr" hint-placeholder-count="5"><option value="{{ cr.k }}">{{ cr.label }}</option></sc-for>
+                  </select>
+                </div>
+              </div>
+              <div class="field" style="margin-top:var(--space-3)"><label>Tecido e acabamento</label><input class="input" value="{{ d.tecido }}" onChange="{{ setTecido }}" placeholder="Algodão xadrez, forro de sarja"></div>
+              <div style="display:flex;align-items:center;gap:var(--space-3);margin-top:var(--space-4)">
+                <button class="btn btn-primary" onClick="{{ guardarProduto }}" style="cursor:pointer">Guardar peça</button>
+                <button class="btn btn-secondary" onClick="{{ cancelarProduto }}" style="cursor:pointer">Cancelar</button>
+                <button class="btn btn-secondary" onClick="{{ apagarProduto }}" style="cursor:pointer">Apagar</button>
+                <span style="font-size:14px;color:color-mix(in srgb,var(--color-text) 62%,transparent);margin-left:auto">Margem: {{ dMargem }}</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <table class="table" style="width:100%;margin-top:var(--space-6)">
+          <thead>
+            <tr>
+              <th style="text-align:left">Peça</th><th style="text-align:left">Tipo</th>
+              <th style="text-align:right">Preço</th><th style="text-align:right">Custo</th><th style="text-align:right">Margem</th>
+              <th style="text-align:right">Stock</th><th style="text-align:right">Vendidas</th>
+              <th style="text-align:left">Na loja</th><th style="text-align:left">Home</th><th style="text-align:right"></th>
+            </tr>
+          </thead>
+          <tbody>
+            <sc-for list="{{ catalogo }}" as="c" hint-placeholder-count="8">
+              <tr style="background:{{ c.fundo }}">
+                <td>
+                  <div style="display:flex;align-items:center;gap:var(--space-3)">
+                    <div style="width:44px;height:44px;flex:none;background:{{ c.swatch }}"></div>
+                    <span style="font-family:var(--font-heading);font-weight:600">{{ c.nome }}</span>
+                  </div>
+                </td>
+                <td style="color:color-mix(in srgb,var(--color-text) 62%,transparent);white-space:nowrap">{{ c.tipo }}</td>
+                <td style="text-align:right;white-space:nowrap">{{ c.precoFmt }}</td>
+                <td style="text-align:right;white-space:nowrap;color:var(--color-accent-800)">{{ c.custoFmt }}</td>
+                <td style="text-align:right;white-space:nowrap;color:var(--color-accent-700)">{{ c.margemFmt }}</td>
+                <td style="text-align:right;font-weight:600">{{ c.stock }}</td>
+                <td style="text-align:right">{{ c.vendidas }}</td>
+                <td><a onClick="{{ c.alternaAtivo }}" style="cursor:pointer;text-decoration:none"><span class="tag {{ c.ativoVariant }}" style="white-space:nowrap">{{ c.ativoLabel }}</span></a></td>
+                <td><a onClick="{{ c.alternaDestaque }}" style="cursor:pointer;font-size:13px;color:{{ c.destaqueCor }}">{{ c.destaqueLabel }}</a></td>
+                <td style="text-align:right;white-space:nowrap">
+                  <a onClick="{{ c.editar }}" style="cursor:pointer;font-size:13px">Editar</a>
+                  <span style="color:var(--color-divider)"> · </span>
+                  <a onClick="{{ c.apagar }}" style="cursor:pointer;font-size:13px">Apagar</a>
+                </td>
+              </tr>
+            </sc-for>
+          </tbody>
+        </table>
+      </div>
+    </sc-if>
+
+    <sc-if value="{{ isEncomendas }}">
+      <div>
+        <h1 style="font-size:46px;margin:var(--space-2) 0 var(--space-2);letter-spacing:-0.025em;font-family:var(--font-heading);font-weight:700">Encomendas</h1>
+        <p style="font-size:17px;color:color-mix(in srgb,var(--color-text) 72%,transparent);max-width:40em">{{ encomendasResumo }}</p>
+        <p style="font-size:14px;color:var(--color-accent-700);margin-top:var(--space-2);min-height:1.5em">{{ aviso }}</p>
+        <p style="font-size:14px;color:color-mix(in srgb,var(--color-text) 62%,transparent)">O estado e o código que escrever aqui são o que a cliente vê em "Os meus pedidos".</p>
+
+        <table class="table" style="width:100%;margin-top:var(--space-4)">
+          <thead>
+            <tr>
+              <th style="text-align:left">Ref.</th><th style="text-align:left">Dia</th><th style="text-align:left">Cliente</th>
+              <th style="text-align:right">Peças</th><th style="text-align:right">Total</th>
+              <th style="text-align:left">Estado</th><th style="text-align:left">Rastreio</th>
+              <th style="text-align:left">Pagamento</th><th style="text-align:right"></th>
+            </tr>
+          </thead>
+          <tbody>
+            <sc-for list="{{ encomendas }}" as="e" hint-placeholder-count="8">
+              <tr style="opacity:{{ e.opacidade }}">
+                <td style="font-family:var(--font-heading);font-weight:600;white-space:nowrap">{{ e.ref }}</td>
+                <td style="white-space:nowrap">{{ e.dia }}</td>
+                <td>
+                  <div>{{ e.cliente }}</div>
+                  <div style="font-size:13px;color:color-mix(in srgb,var(--color-text) 60%,transparent)">{{ e.localidade }} · {{ e.envioLabel }}</div>
+                </td>
+                <td style="text-align:right">{{ e.pecas }}</td>
+                <td style="text-align:right;white-space:nowrap">{{ e.totalFmt }}</td>
+                <td>
+                  <select class="input" value="{{ e.estado }}" onChange="{{ e.setEstado }}" style="font-size:14px;padding:5px 8px;min-width:132px">
+                    <sc-for list="{{ estadosOpts }}" as="es" hint-placeholder-count="6"><option value="{{ es.k }}">{{ es.label }}</option></sc-for>
+                  </select>
+                </td>
+                <td><input class="input" value="{{ e.rastreio }}" onChange="{{ e.setRast }}" style="font-size:14px;padding:5px 8px;width:150px"></td>
+                <td style="white-space:nowrap">
+                  <a onClick="{{ e.alternaPagamento }}" style="cursor:pointer;text-decoration:none"><span class="tag {{ e.pagoVariant }}">{{ e.pagoLabel }}</span></a>
+                  <div style="font-size:13px;color:color-mix(in srgb,var(--color-text) 60%,transparent);margin-top:3px">{{ e.metodoLabel }}</div>
+                </td>
+                <td style="text-align:right;white-space:nowrap">
+                  <a onClick="{{ e.anular }}" style="cursor:pointer;font-size:13px">{{ e.anularLabel }}</a>
+                  <span style="color:var(--color-divider)"> · </span>
+                  <a onClick="{{ e.apagar }}" style="cursor:pointer;font-size:13px">Apagar</a>
+                </td>
+              </tr>
+            </sc-for>
+          </tbody>
+        </table>
+      </div>
+    </sc-if>
+
+    <sc-if value="{{ isCarrinhos }}">
+      <div>
+        <h1 style="font-size:46px;margin:var(--space-2) 0 var(--space-2);letter-spacing:-0.025em;font-family:var(--font-heading);font-weight:700">Carrinhos</h1>
+        <p style="font-size:17px;color:color-mix(in srgb,var(--color-text) 72%,transparent);max-width:40em">{{ carrinhosResumo }}</p>
+        <p style="font-size:14px;color:var(--color-accent-700);margin-top:var(--space-2);min-height:1.5em">{{ aviso }}</p>
+
+        <table class="table" style="width:100%;margin-top:var(--space-4)">
+          <thead>
+            <tr><th style="text-align:left">Cliente</th><th style="text-align:left">Peças no carrinho</th><th style="text-align:right">Valor</th><th style="text-align:left">Aberto</th><th style="text-align:right"></th></tr>
+          </thead>
+          <tbody>
+            <sc-for list="{{ carrinhos }}" as="k" hint-placeholder-count="3">
+              <tr>
+                <td>
+                  <div style="font-family:var(--font-heading);font-weight:600">{{ k.cliente }}</div>
+                  <div style="font-size:13px;color:color-mix(in srgb,var(--color-text) 60%,transparent)">{{ k.email }}</div>
+                </td>
+                <td>{{ k.pecas }}</td>
+                <td style="text-align:right;white-space:nowrap">{{ k.totalFmt }}</td>
+                <td style="white-space:nowrap">
+                  <span class="tag {{ k.quente }}">{{ k.quenteLabel }}</span>
+                  <div style="font-size:13px;color:color-mix(in srgb,var(--color-text) 60%,transparent);margin-top:3px">{{ k.idade }}</div>
+                </td>
+                <td style="text-align:right;white-space:nowrap">
+                  <a onClick="{{ k.converter }}" style="cursor:pointer;font-size:13px">Passar a encomenda</a>
+                  <span style="color:var(--color-divider)"> · </span>
+                  <a onClick="{{ k.apagar }}" style="cursor:pointer;font-size:13px">Apagar</a>
+                </td>
+              </tr>
+            </sc-for>
+          </tbody>
+        </table>
+        <p style="font-size:14px;color:color-mix(in srgb,var(--color-text) 62%,transparent);margin-top:var(--space-4);max-width:40em;line-height:1.5">Passar a encomenda cria uma referência nova, por pagar, com as mesmas peças — serve para quando a cliente fecha por mensagem ou no ateliê.</p>
+      </div>
+    </sc-if>
+
+    <sc-if value="{{ isClientes }}">
+      <div>
+        <div style="display:flex;align-items:flex-end;gap:var(--space-4)">
+          <div>
+            <h1 style="font-size:46px;margin:var(--space-2) 0 var(--space-2);letter-spacing:-0.025em;font-family:var(--font-heading);font-weight:700">Clientes</h1>
+            <p style="font-size:17px;color:color-mix(in srgb,var(--color-text) 72%,transparent);max-width:38em">{{ clientesResumo }}</p>
+          </div>
+          <button class="btn btn-primary" onClick="{{ novoCliente }}" style="cursor:pointer;margin-left:auto">Novo cadastro</button>
+        </div>
+        <p style="font-size:14px;color:var(--color-accent-700);margin-top:var(--space-2);min-height:1.5em">{{ aviso }}</p>
+
+        <div style="display:{{ cEditandoShow }};margin-top:var(--space-4);border-left:3px solid var(--color-accent);padding-left:var(--space-4)">
+          <div style="font-size:12px;letter-spacing:0.12em;text-transform:uppercase;color:var(--color-accent-700)">{{ cTitulo }}</div>
+          <div style="display:grid;grid-template-columns:1.4fr 1.6fr 1fr 0.8fr 1.2fr;gap:var(--space-3);margin-top:var(--space-3)">
+            <div class="field"><label>Nome</label><input class="input" value="{{ c.nome }}" onChange="{{ setCNome }}" placeholder="Maria Arrais"></div>
+            <div class="field"><label>E-mail</label><input class="input" type="email" value="{{ c.email }}" onChange="{{ setCEmail }}" placeholder="maria@exemplo.pt"></div>
+            <div class="field"><label>Telefone</label><input class="input" value="{{ c.tel }}" onChange="{{ setCTel }}" placeholder="912 000 000"></div>
+            <div class="field"><label>Código postal</label><input class="input" value="{{ c.cp }}" onChange="{{ setCCp }}" placeholder="1250-066"></div>
+            <div class="field"><label>Localidade</label><input class="input" value="{{ c.localidade }}" onChange="{{ setCLocal }}" placeholder="Lisboa"></div>
+          </div>
+          <div style="display:flex;gap:var(--space-3);margin-top:var(--space-4)">
+            <button class="btn btn-primary" onClick="{{ guardarCadastro }}" style="cursor:pointer">Guardar cadastro</button>
+            <button class="btn btn-secondary" onClick="{{ cancelarCadastro }}" style="cursor:pointer">Cancelar</button>
+            <button class="btn btn-secondary" onClick="{{ apagarCadastro }}" style="cursor:pointer">Apagar</button>
+          </div>
+        </div>
+
+        <table class="table" style="width:100%;margin-top:var(--space-6)">
+          <thead>
+            <tr><th style="text-align:left">Nome</th><th style="text-align:left">Contactos</th><th style="text-align:left">Morada</th><th style="text-align:right">Encomendas</th><th style="text-align:right">Gasto</th><th style="text-align:right"></th></tr>
+          </thead>
+          <tbody>
+            <sc-for list="{{ clientes }}" as="cl" hint-placeholder-count="5">
+              <tr style="background:{{ cl.fundo }}">
+                <td style="font-family:var(--font-heading);font-weight:600">
+                  {{ cl.nome }}
+                  <span class="tag tag-accent" style="display:{{ cl.fiel }};margin-left:6px">Cliente fiel</span>
+                </td>
+                <td>
+                  <div>{{ cl.email }}</div>
+                  <div style="font-size:13px;color:color-mix(in srgb,var(--color-text) 60%,transparent)">{{ cl.tel }}</div>
+                </td>
+                <td style="color:color-mix(in srgb,var(--color-text) 62%,transparent);white-space:nowrap">{{ cl.morada }}</td>
+                <td style="text-align:right">{{ cl.nEnc }}</td>
+                <td style="text-align:right;white-space:nowrap">{{ cl.gastoFmt }}</td>
+                <td style="text-align:right;white-space:nowrap">
+                  <a onClick="{{ cl.editar }}" style="cursor:pointer;font-size:13px">Editar</a>
+                  <span style="color:var(--color-divider)"> · </span>
+                  <a onClick="{{ cl.apagar }}" style="cursor:pointer;font-size:13px">Apagar</a>
+                </td>
+              </tr>
+            </sc-for>
+          </tbody>
+        </table>
+      </div>
+    </sc-if>
+
+    <sc-if value="{{ isPagamentos }}">
+      <div>
+        <h1 style="font-size:46px;margin:var(--space-2) 0 var(--space-2);letter-spacing:-0.025em;font-family:var(--font-heading);font-weight:700">Pagamentos</h1>
+        <p style="font-size:17px;color:color-mix(in srgb,var(--color-text) 72%,transparent);max-width:40em">{{ pagamentosResumo }}</p>
+        <p style="font-size:14px;color:var(--color-accent-700);margin-top:var(--space-2);min-height:1.5em">{{ aviso }}</p>
+
+        <div style="display:grid;grid-template-columns:1fr 1.3fr;gap:var(--space-8);margin-top:var(--space-4);align-items:start">
+          <div>
+            <div style="font-size:12px;letter-spacing:0.12em;text-transform:uppercase;color:var(--color-accent-700);margin-bottom:var(--space-3)">Métodos no checkout</div>
+            <sc-for list="{{ metodos }}" as="m" hint-placeholder-count="4">
+              <div style="padding:var(--space-3) 0;border-bottom:1px solid var(--color-divider)">
+                <div style="display:flex;align-items:flex-start;gap:var(--space-3)">
+                  <label class="radio" style="margin:0"><input type="checkbox" checked="{{ m.on }}" onChange="{{ m.alterna }}"><span class="dot" style="border-radius:2px"></span></label>
+                  <div style="flex:1">
+                    <div style="font-family:var(--font-heading);font-weight:600;font-size:16px">{{ m.label }}</div>
+                    <div style="font-size:13px;color:color-mix(in srgb,var(--color-text) 62%,transparent);margin-top:2px">{{ m.nota }}</div>
+                    <div style="height:6px;background:var(--color-surface);margin-top:8px"><div style="height:100%;width:{{ m.barra }};background:var(--color-accent)"></div></div>
+                    <div style="font-size:13px;color:color-mix(in srgb,var(--color-text) 60%,transparent);margin-top:4px">{{ m.usos }} encomendas · {{ m.valorFmt }}</div>
+                  </div>
+                  <span class="tag {{ m.variant }}" style="white-space:nowrap">{{ m.estado }}</span>
+                </div>
+              </div>
+            </sc-for>
+            <div style="margin-top:var(--space-4)">
+              <div style="font-size:12px;letter-spacing:0.12em;text-transform:uppercase;color:color-mix(in srgb,var(--color-text) 55%,transparent)">Por receber</div>
+              <div style="font-family:var(--font-heading);font-weight:700;font-size:32px;margin-top:var(--space-1)">{{ porPagarFmt }}</div>
+              <div style="font-size:13px;color:color-mix(in srgb,var(--color-text) 60%,transparent)">{{ nPorPagar }} encomendas à espera de confirmação</div>
+            </div>
+          </div>
+
+          <div>
+            <div style="font-size:12px;letter-spacing:0.12em;text-transform:uppercase;color:color-mix(in srgb,var(--color-text) 55%,transparent);margin-bottom:var(--space-3)">Movimentos de pagamento</div>
+            <table class="table" style="width:100%">
+              <thead><tr><th style="text-align:left">Ref.</th><th style="text-align:left">Dia</th><th style="text-align:left">Cliente</th><th style="text-align:left">Método</th><th style="text-align:right">Valor</th><th style="text-align:left">Estado</th><th style="text-align:right"></th></tr></thead>
+              <tbody>
+                <sc-for list="{{ transacoes }}" as="tr" hint-placeholder-count="8">
+                  <tr>
+                    <td style="font-family:var(--font-heading);font-weight:600;white-space:nowrap">{{ tr.ref }}</td>
+                    <td style="white-space:nowrap">{{ tr.dia }}</td>
+                    <td>{{ tr.cliente }}</td>
+                    <td style="white-space:nowrap;color:color-mix(in srgb,var(--color-text) 62%,transparent)">{{ tr.metodoLabel }}</td>
+                    <td style="text-align:right;white-space:nowrap">{{ tr.totalFmt }}</td>
+                    <td><span class="tag {{ tr.estadoVariant }}" style="white-space:nowrap">{{ tr.estadoLabel }}</span></td>
+                    <td style="text-align:right;white-space:nowrap"><a onClick="{{ tr.alterna }}" style="cursor:pointer;font-size:13px">{{ tr.acaoLabel }}</a></td>
+                  </tr>
+                </sc-for>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </sc-if>
+
+    <sc-if value="{{ isSite }}">
+      <div>
+        <h1 style="font-size:46px;margin:var(--space-2) 0 var(--space-2);letter-spacing:-0.025em;font-family:var(--font-heading);font-weight:700">Site e manutenção</h1>
+        <p style="font-size:17px;color:color-mix(in srgb,var(--color-text) 72%,transparent);max-width:38em">{{ siteResumo }}</p>
+        <p style="font-size:15px;color:var(--color-accent-700);margin-top:var(--space-2);display:{{ feriasShow }}">{{ feriasAviso }}</p>
+
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:var(--space-8);margin-top:var(--space-6);align-items:start">
+          <div>
+            <div style="font-size:12px;letter-spacing:0.12em;text-transform:uppercase;color:var(--color-accent-700);margin-bottom:var(--space-3)">Funcionalidades da loja</div>
+            <sc-for list="{{ features }}" as="f" hint-placeholder-count="6">
+              <div style="display:flex;align-items:flex-start;gap:var(--space-3);padding:var(--space-3) 0;border-bottom:1px solid var(--color-divider)">
+                <label class="radio" style="margin:0"><input type="checkbox" checked="{{ f.on }}" onChange="{{ f.alterna }}"><span class="dot" style="border-radius:2px"></span></label>
+                <div style="flex:1">
+                  <div style="font-family:var(--font-heading);font-weight:600;font-size:16px">{{ f.label }}</div>
+                  <div style="font-size:13px;color:color-mix(in srgb,var(--color-text) 62%,transparent);margin-top:2px">{{ f.nota }}</div>
+                </div>
+                <span class="tag {{ f.variant }}" style="white-space:nowrap">{{ f.estado }}</span>
+              </div>
+            </sc-for>
+
+            <div style="font-size:12px;letter-spacing:0.12em;text-transform:uppercase;color:var(--color-accent-700);margin:var(--space-6) 0 var(--space-3)">Envio grátis a partir de</div>
+            <div style="display:flex;align-items:center;gap:var(--space-3)">
+              <div class="field" style="width:140px;margin:0"><input class="input" type="number" min="0" step="5" value="{{ limiteEnvio }}" onChange="{{ setLimite }}"></div>
+              <span style="font-size:14px;color:color-mix(in srgb,var(--color-text) 62%,transparent)">euros, sem contar a portes</span>
+            </div>
+            <div style="margin-top:var(--space-4);background:var(--color-accent-100);padding:var(--space-3);display:{{ bannerShow }}">
+              <div style="font-size:11px;letter-spacing:0.12em;text-transform:uppercase;color:var(--color-accent-700)">Como aparece na loja</div>
+              <div style="font-size:15px;margin-top:4px">{{ bannerTexto }}</div>
+            </div>
+            <p style="font-size:14px;color:color-mix(in srgb,var(--color-text) 62%,transparent);margin-top:var(--space-3)">{{ bannerOffTexto }}</p>
+          </div>
+
+          <div>
+            <div style="font-size:12px;letter-spacing:0.12em;text-transform:uppercase;color:var(--color-accent-700);margin-bottom:var(--space-3)">Secções visíveis · {{ secoesVisiveis }} de 7 · {{ pecasVisiveis }} peças</div>
+            <sc-for list="{{ secoes }}" as="x" hint-placeholder-count="7">
+              <div style="display:flex;align-items:center;gap:var(--space-3);padding:var(--space-2) 0;border-bottom:1px solid var(--color-divider)">
+                <label class="radio" style="margin:0"><input type="checkbox" checked="{{ x.on }}" onChange="{{ x.alterna }}"><span class="dot" style="border-radius:2px"></span></label>
+                <div style="font-family:var(--font-heading);font-weight:600;font-size:16px;color:{{ x.cor }};flex:1">{{ x.label }}</div>
+                <div style="font-size:13px;color:color-mix(in srgb,var(--color-text) 60%,transparent)">{{ x.pecas }} peças</div>
+                <span class="tag {{ x.variant }}" style="white-space:nowrap">{{ x.estado }}</span>
+              </div>
+            </sc-for>
+
+            <div style="font-size:12px;letter-spacing:0.12em;text-transform:uppercase;color:var(--color-accent-700);margin:var(--space-6) 0 var(--space-3)">Texto da página inicial</div>
+            <div class="field"><label>Título</label><input class="input" value="{{ titulo }}" onChange="{{ setTitulo }}"></div>
+            <div class="field" style="margin-top:var(--space-3)"><label>Gancho</label><input class="input" value="{{ gancho }}" onChange="{{ setGancho }}"></div>
+            <div style="margin-top:var(--space-4);border-left:3px solid var(--color-accent);padding-left:var(--space-3)">
+              <div style="font-family:var(--font-heading);font-weight:700;font-size:22px;line-height:1.15;letter-spacing:-0.02em">{{ titulo }}</div>
+              <div style="font-style:italic;font-size:15px;color:var(--color-accent-700);margin-top:6px">{{ gancho }}</div>
+            </div>
+          </div>
+        </div>
+
+        <div style="height:14px;opacity:var(--ruffle-op);background:radial-gradient(circle at 12px -2px,transparent 11px,var(--color-accent-200) 11px) 0 0/24px 14px repeat-x;margin:var(--space-8) 0 var(--space-6)"></div>
+
+        <div style="display:grid;grid-template-columns:1.15fr 1fr;gap:var(--space-8);align-items:start">
+          <div>
+            <div style="font-size:12px;letter-spacing:0.12em;text-transform:uppercase;color:color-mix(in srgb,var(--color-text) 55%,transparent);margin-bottom:var(--space-3)">Páginas do site</div>
+            <table class="table" style="width:100%">
+              <thead><tr><th style="text-align:left">Página</th><th style="text-align:left">O que tem</th><th style="text-align:left">Estado</th></tr></thead>
+              <tbody>
+                <sc-for list="{{ paginas }}" as="pg" hint-placeholder-count="7">
+                  <tr>
+                    <td style="font-family:var(--font-heading);font-weight:600;white-space:nowrap">{{ pg.nome }}</td>
+                    <td style="color:color-mix(in srgb,var(--color-text) 62%,transparent)">{{ pg.nota }}</td>
+                    <td><span class="tag {{ pg.variant }}" style="white-space:nowrap">{{ pg.estado }}</span></td>
+                  </tr>
+                </sc-for>
+              </tbody>
+            </table>
+          </div>
+
+          <div>
+            <div style="font-size:12px;letter-spacing:0.12em;text-transform:uppercase;color:var(--color-accent-700);margin-bottom:var(--space-3)">Manutenção · {{ pendentes }} pendentes</div>
+            <sc-for list="{{ tarefas }}" as="t" hint-placeholder-count="5">
+              <div style="display:flex;align-items:flex-start;gap:var(--space-3);padding:var(--space-3) 0;border-bottom:1px solid var(--color-divider)">
+                <label class="radio" style="margin:0"><input type="checkbox" checked="{{ t.feito }}" onChange="{{ t.alterna }}"><span class="dot" style="border-radius:2px"></span></label>
+                <div style="flex:1">
+                  <div style="font-family:var(--font-heading);font-weight:600;font-size:16px;color:{{ t.cor }};text-decoration:{{ t.risco }}">{{ t.label }}</div>
+                  <div style="font-size:13px;color:color-mix(in srgb,var(--color-text) 62%,transparent);margin-top:2px">{{ t.nota }}</div>
+                </div>
+                <span class="tag {{ t.variant }}" style="white-space:nowrap">{{ t.estado }}</span>
+              </div>
+            </sc-for>
+            <p style="font-size:14px;color:var(--color-accent-700);margin-top:var(--space-3);min-height:1.5em">{{ guardado }}</p>
+          </div>
+        </div>
+      </div>
+    </sc-if>
+
+  </div>
+
+  <div style="background:var(--color-surface)">
+    <div style="height:16px;opacity:var(--ruffle-op);background:radial-gradient(circle at 14px 16px,transparent 13px,var(--color-bg) 13px) 0 0/28px 16px repeat-x"></div>
+    <div style="max-width:1240px;margin:0 auto;padding:var(--space-6);width:100%;box-sizing:border-box;display:flex;align-items:baseline;gap:var(--space-4)">
+      <div>
+        <div style="font-family:var(--font-heading);font-weight:700;font-size:20px;font-style:italic">Little Frill</div>
+        <div style="font-size:11px;letter-spacing:0.12em;text-transform:uppercase;color:color-mix(in srgb,var(--color-text) 55%,transparent);margin-top:4px">by Arrais Atelier · administração</div>
+      </div>
+      <div style="margin-left:auto;font-size:13px;color:color-mix(in srgb,var(--color-text) 60%,transparent)">Os números mexem à medida que registar movimentos nesta página.</div>
+    </div>
+  </div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;metaMes&quot;:{&quot;editor&quot;:&quot;int&quot;,&quot;default&quot;:1500,&quot;min&quot;:500,&quot;max&quot;:4000,&quot;step&quot;:100,&quot;unit&quot;:&quot;€&quot;,&quot;tsType&quot;:&quot;number&quot;,&quot;section&quot;:&quot;Metas&quot;},&quot;envioCobrado&quot;:{&quot;editor&quot;:&quot;float&quot;,&quot;default&quot;:4.5,&quot;min&quot;:0,&quot;max&quot;:10,&quot;step&quot;:0.5,&quot;unit&quot;:&quot;€&quot;,&quot;tsType&quot;:&quot;number&quot;,&quot;section&quot;:&quot;Envio&quot;},&quot;envioReal&quot;:{&quot;editor&quot;:&quot;float&quot;,&quot;default&quot;:4.1,&quot;min&quot;:0,&quot;max&quot;:10,&quot;step&quot;:0.1,&quot;unit&quot;:&quot;€&quot;,&quot;tsType&quot;:&quot;number&quot;,&quot;section&quot;:&quot;Envio&quot;}}">
+const CORES = {
+  rosa:   { label: 'Rosa',    lt: '#fbdce6', md: '#f2b8cd' },
+  azul:   { label: 'Azul',    lt: '#dbeaf6', md: '#aecfe6' },
+  lilas:  { label: 'Lilás',   lt: '#e8e1f7', md: '#c9bbe8' },
+  amarelo:{ label: 'Amarelo', lt: '#fbeec8', md: '#f4dc94' },
+  verde:  { label: 'Verde',   lt: '#e2efd8', md: '#bcdba9' }
+};
+
+const P = [
+  { id: 1,  nome: 'Bolsa Alentejo',        preco: 48, custo: 17.20, padrao: 'xadrez',  cor: 'rosa',    tecido: 'Algodão xadrez, forro de sarja', base: 6 },
+  { id: 3,  nome: 'Necessaire Grande',     preco: 26, custo: 8.40,  padrao: 'floral',  cor: 'lilas',   tecido: 'Algodão floral, interior impermeável', base: 12 },
+  { id: 5,  nome: 'Porta-moedas Coração',  preco: 12, custo: 3.10,  padrao: 'floral',  cor: 'rosa',    tecido: 'Retalhos de algodão', base: 20 },
+  { id: 7,  nome: 'Capa de Portátil 15"',  preco: 42, custo: 15.60, padrao: 'liso',    cor: 'azul',    tecido: 'Linho acolchoado', base: 4 },
+  { id: 9,  nome: 'Babete com folho',      preco: 14, custo: 4.20,  padrao: 'xadrez',  cor: 'rosa',    tecido: 'Algodão duplo, atrás em felpo', base: 15 },
+  { id: 12, nome: 'Caminho de mesa',       preco: 28, custo: 9.80,  padrao: 'liso',    cor: 'amarelo', tecido: 'Linho lavado', base: 5 },
+  { id: 17, nome: 'Luva de forno',         preco: 15, custo: 5.10,  padrao: 'listras', cor: 'rosa',    tecido: 'Algodão com manta térmica', base: 14 },
+  { id: 19, nome: 'Cama para gato',        preco: 40, custo: 14.50, padrao: 'xadrez',  cor: 'azul',    tecido: 'Algodão xadrez, enchimento lavável', base: 4 }
+];
+
+const FIXOS = [
+  { label: 'Renda do ateliê', valor: 180 },
+  { label: 'Luz e água', valor: 42 },
+  { label: 'Embalagem e etiquetas', valor: 38 },
+  { label: 'Site e domínio', valor: 14 }
+];
+
+const HIST = [
+  { mes: 'Mar', valor: 1180 }, { mes: 'Abr', valor: 1420 }, { mes: 'Mai', valor: 1610 },
+  { mes: 'Jun', valor: 1385 }, { mes: 'Jul', valor: 1240 }
+];
+
+const VENDAS0 = [
+  { ref: 'CA-1176', dia: 2,  clienteId: 2, estado: 'entregue', metodo: 'mbway',        pago: true,  rastreio: 'DW 1176 2210 4 PT', linhas: [{ id: 5, qty: 2 }, { id: 9, qty: 1 }], envio: 'ctt' },
+  { ref: 'CA-1178', dia: 4,  clienteId: 3, estado: 'entregue', metodo: 'multibanco',   pago: true,  rastreio: 'DW 1178 6641 2 PT', linhas: [{ id: 3, qty: 1 }], envio: 'ctt' },
+  { ref: 'CA-1181', dia: 5,  clienteId: 1, estado: 'entregue', metodo: 'mbway',        pago: true,  rastreio: '—',                 linhas: [{ id: 1, qty: 1 }, { id: 5, qty: 1 }], envio: 'atelie' },
+  { ref: 'CA-1183', dia: 7,  clienteId: 4, estado: 'entregue', metodo: 'cartao',       pago: true,  rastreio: 'DW 1183 9075 8 PT', linhas: [{ id: 17, qty: 2 }], envio: 'ctt' },
+  { ref: 'CA-1185', dia: 8,  clienteId: 5, estado: 'entregue', metodo: 'mbway',        pago: true,  rastreio: 'DW 1185 4418 1 PT', linhas: [{ id: 12, qty: 1 }, { id: 3, qty: 1 }], envio: 'ctt' },
+  { ref: 'CA-1187', dia: 11, clienteId: 1, estado: 'producao', metodo: 'mbway',        pago: true,  rastreio: 'DW 1187 4412 9 PT', linhas: [{ id: 3, qty: 1 }, { id: 5, qty: 1 }], envio: 'ctt' },
+  { ref: 'CA-1190', dia: 12, clienteId: 3, estado: 'enviada',  metodo: 'transferencia',pago: true,  rastreio: 'DW 1190 3327 5 PT', linhas: [{ id: 7, qty: 1 }], envio: 'ctt' },
+  { ref: 'CA-1193', dia: 13, clienteId: 2, estado: 'entregue', metodo: 'mbway',        pago: true,  rastreio: '—',                 linhas: [{ id: 9, qty: 3 }], envio: 'atelie' },
+  { ref: 'CA-1196', dia: 14, clienteId: 4, estado: 'enviada',  metodo: 'cartao',       pago: true,  rastreio: 'DW 1196 8802 7 PT', linhas: [{ id: 1, qty: 1 }], envio: 'ctt' },
+  { ref: 'CA-1200', dia: 14, clienteId: 1, estado: 'recebida', metodo: 'mbway',        pago: true,  rastreio: 'DW 1204 7788 3 PT', linhas: [{ id: 19, qty: 1 }], envio: 'ctt' },
+  { ref: 'CA-1203', dia: 15, clienteId: 5, estado: 'embalada', metodo: 'multibanco',   pago: false, rastreio: '—',                 linhas: [{ id: 5, qty: 3 }, { id: 17, qty: 1 }], envio: 'ctt' },
+  { ref: 'CA-1206', dia: 16, clienteId: 2, estado: 'producao', metodo: 'mbway',        pago: true,  rastreio: '—',                 linhas: [{ id: 3, qty: 1 }, { id: 12, qty: 1 }], envio: 'ctt' },
+  { ref: 'CA-1209', dia: 17, clienteId: 3, estado: 'recebida', metodo: 'cartao',       pago: true,  rastreio: '—',                 linhas: [{ id: 9, qty: 2 }], envio: 'atelie' }
+];
+
+const MOVS0 = [
+  { dia: 1,  tipo: 'entrada', id: 5,  qty: 12 },
+  { dia: 3,  tipo: 'entrada', id: 9,  qty: 8 },
+  { dia: 6,  tipo: 'saida',   id: 3,  qty: 1, motivo: 'quebra' },
+  { dia: 9,  tipo: 'entrada', id: 3,  qty: 6 },
+  { dia: 10, tipo: 'saida',   id: 17, qty: 2, motivo: 'amostra' },
+  { dia: 13, tipo: 'entrada', id: 1,  qty: 3 },
+  { dia: 16, tipo: 'entrada', id: 19, qty: 2 }
+];
+
+const PADROES = { xadrez: 'Xadrez', floral: 'Floral', listras: 'Listras', liso: 'Liso' };
+const MOTIVOS = { quebra: 'Quebra', amostra: 'Amostra', presente: 'Presente' };
+
+const TIPOS = ['Bolsa','Necessaire','Capa','Porta-moedas','Bebé','Mesa','Banho','Cama','Cozinha','Pets'];
+
+const ESTADOS_ENC = [
+  { key: 'recebida', label: 'Recebida', variant: 'tag-accent' },
+  { key: 'producao', label: 'Em produção', variant: 'tag-accent-2' },
+  { key: 'embalada', label: 'Embalada', variant: 'tag-accent-2' },
+  { key: 'enviada', label: 'Enviada', variant: 'tag-outline' },
+  { key: 'entregue', label: 'Entregue', variant: 'tag-neutral' },
+  { key: 'anulada', label: 'Anulada', variant: 'tag-neutral' }
+];
+
+const METODOS = [
+  { key: 'mbway', label: 'MB WAY', nota: 'Pedido para o telefone, sem comissão de terminal' },
+  { key: 'multibanco', label: 'Multibanco', nota: 'Entidade e referência, válidas 3 dias' },
+  { key: 'cartao', label: 'Cartão', nota: 'Visa e Mastercard, 1,4% + 0,25 € por cobrança' },
+  { key: 'transferencia', label: 'Transferência', nota: 'IBAN por e-mail, confirmação manual' }
+];
+
+const CLIENTES0 = [
+  { id: 1, nome: 'Maria Arrais', email: 'maria@exemplo.pt', tel: '912 000 000', cp: '1250-066', localidade: 'Lisboa' },
+  { id: 2, nome: 'Ana Coutinho', email: 'ana.coutinho@exemplo.pt', tel: '936 118 204', cp: '2775-320', localidade: 'Parede' },
+  { id: 3, nome: 'Rita Vaz', email: 'rita.vaz@exemplo.pt', tel: '967 442 013', cp: '4000-322', localidade: 'Porto' },
+  { id: 4, nome: 'Helena Brito', email: 'helena@exemplo.pt', tel: '925 780 551', cp: '3000-370', localidade: 'Coimbra' },
+  { id: 5, nome: 'Sofia Nunes', email: 'sofia.nunes@exemplo.pt', tel: '918 224 907', cp: '8000-142', localidade: 'Faro' }
+];
+
+const CARRINHOS0 = [
+  { id: 1, clienteId: 3, dia: 16, horas: 20, linhas: [{ id: 1, qty: 1 }, { id: 5, qty: 1 }] },
+  { id: 2, clienteId: 5, dia: 15, horas: 44, linhas: [{ id: 7, qty: 1 }] },
+  { id: 3, clienteId: 0, dia: 17, horas: 3, linhas: [{ id: 9, qty: 2 }, { id: 17, qty: 1 }] }
+];
+
+const SECOES = [
+  { key: 'acessorios', label: 'Acessórios', pecas: 8 },
+  { key: 'bebe', label: 'Bebé', pecas: 2 },
+  { key: 'mesa', label: 'Mesa', pecas: 2 },
+  { key: 'banho', label: 'Banho', pecas: 2 },
+  { key: 'cama', label: 'Cama', pecas: 2 },
+  { key: 'cozinha', label: 'Cozinha', pecas: 2 },
+  { key: 'pets', label: 'Pets', pecas: 2 }
+];
+
+const FEATURES = [
+  { key: 'bannerEnvio', label: 'Barra de envio grátis', nota: 'Faixa no topo da loja com o valor que falta para o envio ser nosso.' },
+  { key: 'mostrarStock', label: 'Mostrar stock nas peças', nota: '"3 prontas na prateleira" ou "só 2 — última fornada".' },
+  { key: 'combinaCom', label: 'Sugestões "Combina com"', nota: 'Pares por baixo do catálogo e na página da peça.' },
+  { key: 'recolhaAtelie', label: 'Recolha no ateliê', nota: 'Opção grátis no checkout, terça a sábado.' },
+  { key: 'cartaMensal', label: 'Carta mensal', nota: 'Caixa de subscrição no registo e no rodapé.' },
+  { key: 'ferias', label: 'Modo de férias', nota: 'Aceita encomendas mas avisa que só saem no regresso.' }
+];
+
+const TAREFAS = [
+  { key: 'fotos', label: 'Trocar padrões por fotografias reais', nota: 'Faltam Cama e Pets', feito: false },
+  { key: 'qr', label: 'Ligar os QR dos cartões ao site', nota: 'Os cartões impressos usam código de exemplo', feito: false },
+  { key: 'backup', label: 'Cópia de segurança da base de dados', nota: 'Semanal, domingo à noite', feito: true },
+  { key: 'ctt', label: 'Confirmar tabela de preços dos CTT', nota: 'Revista em julho', feito: true },
+  { key: 'rgpd', label: 'Rever texto de privacidade e cookies', nota: 'Pendente desde a abertura', feito: false }
+];
+const DIA = 17, DIAS_MES = 31, MES = 'agosto';
+
+class Component extends DCLogic {
+  state = {
+    tab: 'painel', vendas: VENDAS0.slice(), movs: MOVS0.slice(),
+    prods: P.map(x => Object.assign({ ativo: true, destaque: false }, x)),
+    clientes: CLIENTES0.slice(), carrinhos: CARRINHOS0.slice(),
+    pagamentosOn: { mbway: true, multibanco: true, cartao: true, transferencia: false },
+    editId: null, draft: null, clienteEdit: null, clienteDraft: null, novoId: 90,
+    formProd: 5, formQty: 1, formMotivo: 'quebra', aviso: '', seq: 1210,
+    flags: { bannerEnvio: true, mostrarStock: true, combinaCom: true, recolhaAtelie: true, cartaMensal: true, ferias: false },
+    secoesOn: { acessorios: true, bebe: true, mesa: true, banho: true, cama: true, cozinha: true, pets: true },
+    limiteEnvio: 50,
+    titulo: 'Presentes que não existem em mais nenhuma casa.',
+    gancho: 'Cada peça tem par: leve o conjunto e poupe no envio.',
+    tarefas: TAREFAS.map(t => ({ key: t.key, feito: t.feito })),
+    guardado: ''
+  };
+  rootRef = React.createRef();
+
+  get meta() { return this.props.metaMes ?? 1500; }
+  get envioCobrado() { return this.props.envioCobrado ?? 4.5; }
+  get envioReal() { return this.props.envioReal ?? 4.1; }
+
+  fmt(n) { return n.toFixed(2).replace('.', ',') + ' €'; }
+  fmtCurto(n) { return n >= 1000 ? (n / 1000).toFixed(1).replace('.', ',') + 'k' : Math.round(n) + ''; }
+  pct(n) { return Math.round(n * 100) + '%'; }
+  get lista() { return this.state.prods; }
+  prod(id) { return this.lista.find(p => p.id === id) || this.lista[0] || P[0]; }
+  vivas() { return this.state.vendas.filter(v => v.estado !== 'anulada'); }
+  cliente(id) { return this.state.clientes.find(c => c.id === id) || { nome: 'Sem conta', email: '—', tel: '—', cp: '—', localidade: '—' }; }
+  estadoEnc(k) { return ESTADOS_ENC.find(x => x.key === k) || ESTADOS_ENC[0]; }
+
+  swatch(p) {
+    const c = CORES[p.cor];
+    if (p.padrao === 'liso') return c.lt;
+    if (p.padrao === 'listras') return 'repeating-linear-gradient(90deg,' + c.md + ' 0 10px,' + c.lt + ' 10px 20px)';
+    if (p.padrao === 'xadrez') {
+      const s = 'color-mix(in srgb,' + c.md + ' 62%,transparent)';
+      return 'repeating-linear-gradient(90deg,' + s + ' 0 17px,transparent 17px 34px),' +
+             'repeating-linear-gradient(0deg,' + s + ' 0 17px,transparent 17px 34px),' + c.lt;
+    }
+    const petal = c.md, mid = 'color-mix(in srgb,' + c.md + ' 55%,#fffdf9)';
+    const f = (x, y, r) => 'radial-gradient(circle at ' + x + '% ' + y + '%,' + petal + ' 0 ' + r + 'px,transparent ' + (r + 0.6) + 'px) 0 0/42px 42px';
+    return [f(50, 36, 6), f(64, 50, 6), f(50, 64, 6), f(36, 50, 6),
+      'radial-gradient(circle at 50% 50%,' + mid + ' 0 3.5px,transparent 4px) 0 0/42px 42px',
+      'radial-gradient(circle at 50% 50%,' + petal + ' 0 3px,transparent 3.6px) 21px 21px/42px 42px',
+      c.lt].join(',');
+  }
+
+  vendaTotal(v) { return v.linhas.reduce((t, l) => t + this.prod(l.id).preco * l.qty, 0) + (v.envio === 'ctt' ? this.envioCobrado : 0); }
+  vendaPecas(v) { return v.linhas.reduce((t, l) => t + l.qty, 0); }
+  vendidas(id) { return this.vivas().reduce((t, v) => t + v.linhas.filter(l => l.id === id).reduce((s, l) => s + l.qty, 0), 0); }
+  movQty(id, tipo) { return this.state.movs.filter(m => m.id === id && m.tipo === tipo).reduce((t, m) => t + m.qty, 0); }
+  stockDe(id) { const p = this.prod(id); return p.base + this.movQty(id, 'entrada') - this.movQty(id, 'saida') - this.vendidas(id); }
+
+  registar(tipo) {
+    return () => this.setState(s => {
+      const id = Number(s.formProd), qty = Math.max(1, Number(s.formQty) || 1);
+      const p = this.prod(id);
+      if (tipo !== 'entrada' && this.stockDe(id) < qty) {
+        return { aviso: 'Só há ' + this.stockDe(id) + ' de ' + p.nome + ' — a fornada tem de entrar primeiro.' };
+      }
+      if (tipo === 'venda') {
+        const ref = 'CA-' + s.seq;
+        return {
+          vendas: s.vendas.concat([{
+            ref: ref, dia: DIA, clienteId: null, estado: 'recebida', metodo: 'mbway',
+            pago: true, rastreio: '—', linhas: [{ id: id, qty: qty }], envio: 'ctt'
+          }]),
+          seq: s.seq + 3,
+          aviso: 'Venda ' + ref + ' registada: ' + qty + ' × ' + p.nome + '. Caixa de hoje e stock atualizados.'
+        };
+      }
+      const m = { dia: DIA, tipo: tipo, id: id, qty: qty };
+      if (tipo === 'saida') m.motivo = s.formMotivo;
+      return {
+        movs: s.movs.concat([m]),
+        aviso: (tipo === 'entrada' ? 'Entrada' : 'Saída (' + MOTIVOS[s.formMotivo].toLowerCase() + ')') +
+               ' de ' + qty + ' × ' + p.nome + ' registada.'
+      };
+    });
+  }
+
+  // ── CRUD de produtos
+  abrirNovo() {
+    return () => this.setState(s => ({
+      editId: 'novo', aviso: '',
+      draft: { id: s.novoId, nome: '', tipo: 'Bolsa', preco: 0, custo: 0, padrao: 'xadrez', cor: 'rosa', tecido: '', base: 0, ativo: true, destaque: false }
+    }));
+  }
+  abrirEdicao(id) {
+    return () => this.setState(s => ({ editId: id, aviso: '', draft: Object.assign({}, s.prods.find(p => p.id === id)) }));
+  }
+  setDraft(campo, num) {
+    return e => {
+      const v = num ? Number(e.target.value) : e.target.value;
+      this.setState(s => ({ draft: Object.assign({}, s.draft, { [campo]: v }) }));
+    };
+  }
+  guardarProd() {
+    return () => this.setState(s => {
+      const d = s.draft;
+      if (!d || !d.nome.trim()) return { aviso: 'Dê um nome à peça antes de guardar.' };
+      const existe = s.prods.some(p => p.id === d.id);
+      return {
+        prods: existe ? s.prods.map(p => p.id === d.id ? Object.assign({}, d) : p) : s.prods.concat([Object.assign({}, d)]),
+        novoId: existe ? s.novoId : s.novoId + 1,
+        editId: null, draft: null,
+        aviso: (existe ? 'Peça atualizada: ' : 'Peça criada: ') + d.nome + '.'
+      };
+    });
+  }
+  apagarProd(id) {
+    return () => this.setState(s => {
+      const p = s.prods.find(x => x.id === id);
+      const vendida = this.vendidas(id) > 0;
+      if (vendida) {
+        return { prods: s.prods.map(x => x.id === id ? Object.assign({}, x, { ativo: false }) : x), editId: null, draft: null,
+          aviso: p.nome + ' já tem vendas — foi escondida da loja em vez de apagada, para o histórico não partir.' };
+      }
+      return { prods: s.prods.filter(x => x.id !== id), editId: null, draft: null, aviso: p.nome + ' apagada.' };
+    });
+  }
+  alternaProd(id, campo) {
+    return () => this.setState(s => ({
+      prods: s.prods.map(p => p.id === id ? Object.assign({}, p, { [campo]: !p[campo] }) : p),
+      aviso: ''
+    }));
+  }
+
+  // ── CRUD de encomendas
+  setEstadoEnc(ref) {
+    return e => {
+      const v = e.target.value;
+      this.setState(s => ({ vendas: s.vendas.map(x => x.ref === ref ? Object.assign({}, x, { estado: v }) : x),
+        aviso: ref + ' passou a ' + this.estadoEnc(v).label.toLowerCase() + '.' }));
+    };
+  }
+  setRastreio(ref) {
+    return e => {
+      const v = e.target.value;
+      this.setState(s => ({ vendas: s.vendas.map(x => x.ref === ref ? Object.assign({}, x, { rastreio: v }) : x) }));
+    };
+  }
+  alternaPago(ref) {
+    return () => this.setState(s => ({
+      vendas: s.vendas.map(x => x.ref === ref ? Object.assign({}, x, { pago: !x.pago }) : x),
+      aviso: ref + ' marcada como ' + (s.vendas.find(x => x.ref === ref).pago ? 'pendente' : 'paga') + '.'
+    }));
+  }
+  anularEnc(ref) {
+    return () => this.setState(s => {
+      const v = s.vendas.find(x => x.ref === ref);
+      const anulada = v.estado === 'anulada';
+      return {
+        vendas: s.vendas.map(x => x.ref === ref ? Object.assign({}, x, { estado: anulada ? 'recebida' : 'anulada' }) : x),
+        aviso: anulada ? ref + ' reaberta — voltou a contar na caixa e no stock.' : ref + ' anulada — saiu da caixa e o stock voltou.'
+      };
+    });
+  }
+  apagarEnc(ref) {
+    return () => this.setState(s => ({ vendas: s.vendas.filter(x => x.ref !== ref), aviso: ref + ' apagada do registo.' }));
+  }
+
+  // ── carrinhos
+  converterCarrinho(id) {
+    return () => this.setState(s => {
+      const c = s.carrinhos.find(x => x.id === id);
+      const ref = 'CA-' + s.seq;
+      return {
+        vendas: s.vendas.concat([{ ref: ref, dia: DIA, clienteId: c.clienteId, estado: 'recebida', metodo: 'mbway', pago: false, rastreio: '—', linhas: c.linhas, envio: 'ctt' }]),
+        carrinhos: s.carrinhos.filter(x => x.id !== id), seq: s.seq + 3,
+        aviso: 'Carrinho de ' + this.cliente(c.clienteId).nome + ' virou a encomenda ' + ref + ', por pagar.'
+      };
+    });
+  }
+  apagarCarrinho(id) {
+    return () => this.setState(s => ({ carrinhos: s.carrinhos.filter(x => x.id !== id), aviso: 'Carrinho abandonado apagado.' }));
+  }
+
+  // ── CRUD de clientes
+  abrirCliente(id) {
+    return () => this.setState(s => ({
+      clienteEdit: id, aviso: '',
+      clienteDraft: id === 'novo'
+        ? { id: s.novoId + 500, nome: '', email: '', tel: '', cp: '', localidade: '' }
+        : Object.assign({}, s.clientes.find(c => c.id === id))
+    }));
+  }
+  setCliente(campo) {
+    return e => {
+      const v = e.target.value;
+      this.setState(s => ({ clienteDraft: Object.assign({}, s.clienteDraft, { [campo]: v }) }));
+    };
+  }
+  guardarCliente() {
+    return () => this.setState(s => {
+      const d = s.clienteDraft;
+      if (!d || !d.nome.trim()) return { aviso: 'Falta o nome do cliente.' };
+      const existe = s.clientes.some(c => c.id === d.id);
+      return {
+        clientes: existe ? s.clientes.map(c => c.id === d.id ? Object.assign({}, d) : c) : s.clientes.concat([Object.assign({}, d)]),
+        novoId: existe ? s.novoId : s.novoId + 1,
+        clienteEdit: null, clienteDraft: null,
+        aviso: (existe ? 'Cadastro atualizado: ' : 'Cliente criado: ') + d.nome + '.'
+      };
+    });
+  }
+  apagarCliente(id) {
+    return () => this.setState(s => {
+      const temEnc = s.vendas.some(v => v.clienteId === id);
+      const c = s.clientes.find(x => x.id === id);
+      if (temEnc) return { aviso: c.nome + ' tem encomendas no histórico — não pode ser apagada.' };
+      return { clientes: s.clientes.filter(x => x.id !== id), clienteEdit: null, clienteDraft: null, aviso: c.nome + ' apagada dos cadastros.' };
+    });
+  }
+  alternaMetodo(k) {
+    return () => this.setState(s => {
+      const on = Object.assign({}, s.pagamentosOn);
+      on[k] = !on[k];
+      return { pagamentosOn: on, aviso: (METODOS.find(m => m.key === k) || {}).label + (on[k] ? ' ligado no checkout.' : ' desligado do checkout.') };
+    });
+  }
+
+  renderVals() {
+    const s = this.state;
+    const vendas = this.vivas();
+    const vendasPecas = vendas.reduce((t, v) => t + v.linhas.reduce((x, l) => x + this.prod(l.id).preco * l.qty, 0), 0);
+    const enviosCtt = vendas.filter(v => v.envio === 'ctt').length;
+    const enviosCobrados = enviosCtt * this.envioCobrado;
+    const custoEnvios = enviosCtt * this.envioReal;
+    const custoMateriais = vendas.reduce((t, v) => t + v.linhas.reduce((x, l) => x + this.prod(l.id).custo * l.qty, 0), 0);
+    const fixosTotal = FIXOS.reduce((t, f) => t + f.valor, 0);
+    const receita = vendasPecas + enviosCobrados;
+    const lucro = receita - custoMateriais - custoEnvios - fixosTotal;
+    const margem = receita > 0 ? lucro / receita : 0;
+
+    const porDia = {};
+    vendas.forEach(v => {
+      const d = porDia[v.dia] || (porDia[v.dia] = { dia: v.dia, refs: [], pecas: 0, total: 0 });
+      d.refs.push(v.ref); d.pecas += this.vendaPecas(v); d.total += this.vendaTotal(v);
+    });
+    const dias = Object.keys(porDia).map(k => porDia[k]).sort((a, b) => b.dia - a.dia);
+    const maxDia = dias.reduce((m, d) => Math.max(m, d.total), 1);
+    const caixaHoje = porDia[DIA] ? porDia[DIA].total : 0;
+    const vendasHoje = porDia[DIA] ? porDia[DIA].refs.length : 0;
+
+    const barras = [];
+    for (let d = DIA - 9; d <= DIA; d++) {
+      const val = porDia[d] ? porDia[d].total : 0;
+      barras.push({
+        dia: String(d), valorCurto: val > 0 ? this.fmtCurto(val) : '',
+        altura: Math.round((val / maxDia) * 118) + 'px',
+        cor: d === DIA ? 'var(--color-accent)' : 'var(--color-accent-300)'
+      });
+    }
+
+    const ritmo = this.meta * (DIA / DIAS_MES);
+    const projVendas = receita * (DIAS_MES / DIA);
+    const projLucro = projVendas - (custoMateriais + custoEnvios) * (DIAS_MES / DIA) - fixosTotal;
+    const equilibrio = fixosTotal / (1 - (receita > 0 ? (custoMateriais + custoEnvios) / receita : 0.35));
+
+    const inventario = this.lista.map(p => {
+      const stock = this.stockDe(p.id);
+      return {
+        nome: p.nome, tecido: p.tecido, custoFmt: this.fmt(p.custo), precoFmt: this.fmt(p.preco),
+        margemFmt: p.preco > 0 ? this.pct((p.preco - p.custo) / p.preco) : '—',
+        entradas: this.movQty(p.id, 'entrada'), saidas: this.movQty(p.id, 'saida'),
+        vendidas: this.vendidas(p.id), stock: stock,
+        aviso: stock <= 0 ? 'Esgotada' : (stock <= 3 ? 'Repor' : ''),
+        avisoVariant: stock <= 0 ? 'tag-accent-2' : 'tag-accent',
+        avisoShow: stock <= 3 ? 'inline-flex' : 'none'
+      };
+    });
+
+    const alertas = this.lista.filter(p => p.ativo && this.stockDe(p.id) <= 3).map(p => ({
+      nome: p.nome, swatch: this.swatch(p),
+      nota: this.stockDe(p.id) <= 0 ? 'Esgotada — sai do site até haver fornada' : 'Só ' + this.stockDe(p.id) + ' — vendeu ' + this.vendidas(p.id) + ' este mês'
+    }));
+
+    const rankMap = {};
+    vendas.forEach(v => v.linhas.forEach(l => { rankMap[l.id] = (rankMap[l.id] || 0) + l.qty; }));
+    const rank = Object.keys(rankMap).map(k => ({ id: Number(k), qty: rankMap[k] })).sort((a, b) => b.qty - a.qty).slice(0, 5);
+    const maxRank = rank.length ? rank[0].qty : 1;
+
+    const movsOrd = s.movs.slice().sort((a, b) => b.dia - a.dia);
+    const diarioItens = movsOrd.map(m => ({
+      dia: String(m.dia) + '/08', tipoLabel: m.tipo === 'entrada' ? 'Entrada' : 'Saída · ' + MOTIVOS[m.motivo || 'quebra'],
+      variant: m.tipo === 'entrada' ? 'tag-outline' : 'tag-accent-2',
+      peca: this.prod(m.id).nome, qty: (m.tipo === 'entrada' ? '+' : '−') + m.qty,
+      valorFmt: (m.tipo === 'entrada' ? '−' : '−') + this.fmt(this.prod(m.id).custo * m.qty).replace('€', '€'),
+      cor: 'var(--color-accent-800)', ord: m.dia
+    }));
+    const diarioVendas = vendas.slice().sort((a, b) => b.dia - a.dia).map(v => ({
+      dia: String(v.dia) + '/08', tipoLabel: 'Venda', variant: 'tag-accent',
+      peca: v.linhas.map(l => this.prod(l.id).nome).join(' + '),
+      qty: '−' + this.vendaPecas(v), valorFmt: '+' + this.fmt(this.vendaTotal(v)),
+      cor: 'var(--color-text)', ord: v.dia
+    }));
+    const diario = diarioVendas.concat(diarioItens).sort((a, b) => b.ord - a.ord).slice(0, 9);
+
+    const maxHist = Math.max.apply(null, HIST.map(h => h.valor).concat([receita]));
+    const historico = HIST.map(h => ({
+      mes: h.mes, valorCurto: this.fmtCurto(h.valor),
+      altura: Math.round((h.valor / maxHist) * 120) + 'px',
+      cor: 'var(--color-accent-300)', labelCor: 'color-mix(in srgb,var(--color-text) 60%,transparent)'
+    })).concat([{
+      mes: 'Ago', valorCurto: this.fmtCurto(receita),
+      altura: Math.round((receita / maxHist) * 120) + 'px',
+      cor: 'var(--color-accent)', labelCor: 'var(--color-accent-700)'
+    }]);
+
+    const abas = [
+      { key: 'painel', label: 'Painel' }, { key: 'stock', label: 'Stock' },
+      { key: 'catalogo', label: 'Produtos' }, { key: 'encomendas', label: 'Encomendas' },
+      { key: 'carrinhos', label: 'Carrinhos' }, { key: 'clientes', label: 'Clientes' },
+      { key: 'pagamentos', label: 'Pagamentos' },
+      { key: 'vendas', label: 'Vendas e caixa' }, { key: 'financeiro', label: 'Custos e lucro' },
+      { key: 'site', label: 'Site e manutenção' }
+    ].map(t => ({
+      label: t.label, pick: () => this.setState({ tab: t.key }),
+      cur: s.tab === t.key ? 'page' : 'false',
+      peso: s.tab === t.key ? '700' : '400',
+      cor: s.tab === t.key ? 'var(--color-text)' : 'color-mix(in srgb,var(--color-text) 62%,transparent)',
+      marca: s.tab === t.key ? 'var(--color-accent)' : 'transparent'
+    }));
+
+    const stockTotal = this.lista.reduce((t, p) => t + Math.max(0, this.stockDe(p.id)), 0);
+    const melhor = dias.slice().sort((a, b) => b.total - a.total)[0];
+
+    return {
+      rootRef: this.rootRef, abas: abas, mesNome: MES,
+      hoje: DIA + ' de agosto de 2026',
+      isPainel: s.tab === 'painel', isStock: s.tab === 'stock',
+      isVendas: s.tab === 'vendas', isFinanceiro: s.tab === 'financeiro',
+      isSite: s.tab === 'site',
+      isCatalogo: s.tab === 'catalogo', isEncomendas: s.tab === 'encomendas',
+      isCarrinhos: s.tab === 'carrinhos', isClientes: s.tab === 'clientes',
+      isPagamentos: s.tab === 'pagamentos',
+
+      feriasAviso: s.flags.ferias ? 'Modo de férias ligado — a loja aceita encomendas mas avisa que só saem no regresso.' : '',
+      feriasShow: s.flags.ferias ? 'block' : 'none',
+
+      features: FEATURES.map(f => ({
+        label: f.label, nota: f.nota, on: !!s.flags[f.key],
+        estado: s.flags[f.key] ? 'Ligado' : 'Desligado',
+        variant: s.flags[f.key] ? (f.key === 'ferias' ? 'tag-accent-2' : 'tag-accent') : 'tag-neutral',
+        alterna: () => this.setState(st => {
+          const flags = Object.assign({}, st.flags);
+          flags[f.key] = !flags[f.key];
+          return { flags: flags, guardado: f.label + (flags[f.key] ? ' ligado.' : ' desligado.') };
+        })
+      })),
+
+      secoes: SECOES.map(x => ({
+        label: x.label, pecas: x.pecas, on: !!s.secoesOn[x.key],
+        cor: s.secoesOn[x.key] ? 'var(--color-text)' : 'color-mix(in srgb,var(--color-text) 45%,transparent)',
+        estado: s.secoesOn[x.key] ? 'Visível' : 'Escondida',
+        variant: s.secoesOn[x.key] ? 'tag-outline' : 'tag-neutral',
+        alterna: () => this.setState(st => {
+          const on = Object.assign({}, st.secoesOn);
+          on[x.key] = !on[x.key];
+          return { secoesOn: on, guardado: 'Secção ' + x.label + (on[x.key] ? ' visível na loja.' : ' escondida da loja.') };
+        })
+      })),
+      secoesVisiveis: SECOES.filter(x => s.secoesOn[x.key]).length,
+      pecasVisiveis: SECOES.filter(x => s.secoesOn[x.key]).reduce((t, x) => t + x.pecas, 0),
+
+      limiteEnvio: s.limiteEnvio,
+      setLimite: e => this.setState({ limiteEnvio: Number(e.target.value), guardado: 'Envio grátis a partir de ' + this.fmt(Number(e.target.value)) + '.' }),
+      bannerTexto: 'Envio grátis acima de ' + this.fmt(s.limiteEnvio) + ' · ou recolha no ateliê',
+      bannerShow: s.flags.bannerEnvio ? 'block' : 'none',
+      bannerOffTexto: s.flags.bannerEnvio ? '' : 'Barra desligada — a loja abre logo no título.',
+
+      titulo: s.titulo, gancho: s.gancho,
+      setTitulo: e => this.setState({ titulo: e.target.value, guardado: 'Título da home atualizado.' }),
+      setGancho: e => this.setState({ gancho: e.target.value, guardado: 'Gancho da home atualizado.' }),
+
+      tarefas: TAREFAS.map(t => {
+        const est = s.tarefas.find(x => x.key === t.key) || { feito: t.feito };
+        return {
+          label: t.label, nota: t.nota, feito: est.feito,
+          estado: est.feito ? 'Feito' : 'Pendente',
+          variant: est.feito ? 'tag-neutral' : 'tag-accent',
+          cor: est.feito ? 'color-mix(in srgb,var(--color-text) 50%,transparent)' : 'var(--color-text)',
+          risco: est.feito ? 'line-through' : 'none',
+          alterna: () => this.setState(st => ({
+            tarefas: st.tarefas.map(x => x.key === t.key ? { key: x.key, feito: !x.feito } : x),
+            guardado: t.label + (est.feito ? ' reaberta.' : ' marcada como feita.')
+          }))
+        };
+      }),
+      pendentes: s.tarefas.filter(t => !t.feito).length,
+      guardado: s.guardado,
+
+      siteResumo: 'A loja mostra ' + SECOES.filter(x => s.secoesOn[x.key]).length + ' de ' + SECOES.length + ' secções e ' +
+        SECOES.filter(x => s.secoesOn[x.key]).reduce((t, x) => t + x.pecas, 0) + ' peças. ' +
+        (s.flags.ferias ? 'Modo de férias ligado.' : 'Loja a funcionar normalmente.'),
+      paginas: [
+        { nome: 'Home', nota: 'título, secções, novidades, três colunas', estado: 'Publicada' },
+        { nome: 'Catálogo com filtros', nota: 'secção, padrão, cor, preço, só o que está pronto', estado: 'Publicada' },
+        { nome: 'Página da peça', nota: 'medidas, tecido, lavagem, "Combina com"', estado: s.flags.combinaCom ? 'Publicada' : 'Sem sugestões' },
+        { nome: 'Carrinho e checkout', nota: 'morada, envio, pagamento, confirmação', estado: 'Publicada' },
+        { nome: 'Os meus pedidos', nota: 'estado do envio e rastreio CTT', estado: 'Publicada' },
+        { nome: 'Entrar e criar conta', nota: 'morada guardada e histórico', estado: 'Publicada' },
+        { nome: 'Administração', nota: 'produtos, stock, encomendas, carrinhos, clientes, pagamentos, caixa e custos', estado: 'Interna' }
+      ].map(p => ({
+        nome: p.nome, nota: p.nota, estado: p.estado,
+        variant: p.estado === 'Publicada' ? 'tag-outline' : (p.estado === 'Interna' ? 'tag-neutral' : 'tag-accent')
+      })),
+
+      resumoMes: vendas.length + ' encomendas em ' + DIA + ' dias, ' + this.fmt(receita) + ' de receita. ' +
+        (receita >= ritmo ? 'Está à frente do ritmo da meta.' : 'Falta ' + this.fmt(ritmo - receita) + ' para acompanhar o ritmo da meta.'),
+      vendasMesFmt: this.fmt(vendasPecas),
+      vsMetaTexto: this.pct(receita / this.meta) + ' da meta de ' + this.fmt(this.meta),
+      caixaHojeFmt: this.fmt(caixaHoje),
+      vendasHojeTexto: vendasHoje === 0 ? 'ainda sem encomendas hoje' : (vendasHoje === 1 ? '1 encomenda hoje' : vendasHoje + ' encomendas hoje'),
+      lucroFmt: this.fmt(lucro), lucroCor: lucro >= 0 ? 'var(--color-text)' : 'var(--color-accent-700)',
+      margemPct: this.pct(margem),
+      stockTotal: stockTotal,
+      stockAlertaTexto: alertas.length === 0 ? 'nada por repor' : alertas.length + ' a repor',
+      metaFmt: this.fmt(this.meta),
+      metaPct: this.pct(receita / this.meta),
+      metaPctW: Math.min(100, (receita / this.meta) * 100) + '%',
+      ritmoPctW: Math.min(100, (DIA / DIAS_MES) * 100) + '%',
+      barras: barras,
+      diario: diario,
+      alertas: alertas,
+      alertasVazioTexto: alertas.length === 0 ? 'Nada a repor hoje. Boa altura para cortar tecido novo.' : 'Reponha antes de sexta para não perder o fim de semana.',
+
+      opcoes: this.lista.map(p => ({ id: p.id, label: p.nome + ' · ' + this.stockDe(p.id) + ' em stock' })),
+
+      // ── Produtos
+      catalogo: this.lista.map(p => ({
+        id: p.id, nome: p.nome, tipo: p.tipo, swatch: this.swatch(p), slotId: 'lf-prod-' + p.id,
+        precoFmt: this.fmt(p.preco), custoFmt: this.fmt(p.custo),
+        margemFmt: p.preco > 0 ? this.pct((p.preco - p.custo) / p.preco) : '—',
+        stock: this.stockDe(p.id), vendidas: this.vendidas(p.id),
+        ativoLabel: p.ativo ? 'Na loja' : 'Escondida',
+        ativoVariant: p.ativo ? 'tag-outline' : 'tag-neutral',
+        destaqueLabel: p.destaque ? 'Destaque' : '—',
+        destaqueCor: p.destaque ? 'var(--color-accent-700)' : 'color-mix(in srgb,var(--color-text) 45%,transparent)',
+        editar: this.abrirEdicao(p.id), apagar: this.apagarProd(p.id),
+        alternaAtivo: this.alternaProd(p.id, 'ativo'), alternaDestaque: this.alternaProd(p.id, 'destaque'),
+        fundo: s.editId === p.id ? 'var(--color-accent-100)' : 'transparent'
+      })),
+      novoProd: this.abrirNovo(),
+      editando: !!s.draft,
+      editandoShow: s.draft ? 'block' : 'none',
+      tituloForm: s.editId === 'novo' ? 'Nova peça' : 'Editar peça',
+      d: s.draft || { nome: '', tipo: '', preco: 0, custo: 0, padrao: 'xadrez', cor: 'rosa', tecido: '', base: 0 },
+      dSlotId: 'lf-prod-' + ((s.draft && s.draft.id) || 'novo'),
+      dSwatch: s.draft ? this.swatch(s.draft) : 'var(--color-surface)',
+      dMargem: s.draft && s.draft.preco > 0 ? this.pct((s.draft.preco - s.draft.custo) / s.draft.preco) : '—',
+      setNome: this.setDraft('nome'), setTipo: this.setDraft('tipo'), setPreco: this.setDraft('preco', true),
+      setCusto: this.setDraft('custo', true), setPadrao: this.setDraft('padrao'), setCor: this.setDraft('cor'),
+      setTecido: this.setDraft('tecido'), setBase: this.setDraft('base', true),
+      guardarProduto: this.guardarProd(),
+      cancelarProduto: () => this.setState({ editId: null, draft: null, aviso: '' }),
+      apagarProduto: s.draft ? this.apagarProd(s.draft.id) : () => {},
+      tipos: TIPOS.map(t => ({ label: t })),
+      padroesOpts: Object.keys(PADROES).map(k => ({ k: k, label: PADROES[k] })),
+      coresOpts: Object.keys(CORES).map(k => ({ k: k, label: CORES[k].label })),
+      catalogoResumo: this.lista.length + ' peças no catálogo, ' + this.lista.filter(p => p.ativo).length + ' visíveis na loja e ' +
+        this.lista.filter(p => p.destaque).length + ' em destaque na home.',
+
+      // ── Encomendas
+      encomendas: s.vendas.slice().sort((a, b) => b.dia - a.dia).map(v => {
+        const c = this.cliente(v.clienteId);
+        const est = this.estadoEnc(v.estado);
+        return {
+          ref: v.ref, dia: v.dia + '/08', cliente: c.nome, localidade: c.localidade,
+          pecas: this.vendaPecas(v), totalFmt: this.fmt(this.vendaTotal(v)),
+          estado: v.estado, estadoLabel: est.label, estadoVariant: est.variant,
+          rastreio: v.rastreio, envioLabel: v.envio === 'atelie' ? 'Ateliê' : 'CTT',
+          pagoLabel: v.pago ? 'Paga' : 'Por pagar', pagoVariant: v.pago ? 'tag-outline' : 'tag-accent',
+          metodoLabel: (METODOS.find(m => m.key === v.metodo) || {}).label || '—',
+          anularLabel: v.estado === 'anulada' ? 'Reabrir' : 'Anular',
+          opacidade: v.estado === 'anulada' ? '0.5' : '1',
+          setEstado: this.setEstadoEnc(v.ref), setRast: this.setRastreio(v.ref),
+          alternaPagamento: this.alternaPago(v.ref), anular: this.anularEnc(v.ref), apagar: this.apagarEnc(v.ref)
+        };
+      }),
+      estadosOpts: ESTADOS_ENC.map(e => ({ k: e.key, label: e.label })),
+      encomendasResumo: this.vivas().length + ' encomendas válidas, ' +
+        this.vivas().filter(v => v.estado === 'producao' || v.estado === 'recebida').length + ' à espera de costura e ' +
+        this.vivas().filter(v => !v.pago).length + ' por pagar.',
+
+      // ── Carrinhos
+      carrinhos: s.carrinhos.map(c => {
+        const total = c.linhas.reduce((t, l) => t + this.prod(l.id).preco * l.qty, 0);
+        return {
+          cliente: c.clienteId ? this.cliente(c.clienteId).nome : 'Visitante sem conta',
+          email: c.clienteId ? this.cliente(c.clienteId).email : 'sem e-mail',
+          pecas: c.linhas.map(l => l.qty + ' × ' + this.prod(l.id).nome).join(', '),
+          totalFmt: this.fmt(total),
+          idade: c.horas < 24 ? 'há ' + c.horas + ' horas' : 'há ' + Math.round(c.horas / 24) + ' dias',
+          quente: c.horas < 24 ? 'tag-accent' : 'tag-neutral',
+          quenteLabel: c.horas < 24 ? 'Ainda quente' : 'Abandonado',
+          converter: this.converterCarrinho(c.id), apagar: this.apagarCarrinho(c.id)
+        };
+      }),
+      carrinhosResumo: s.carrinhos.length === 0 ? 'Nenhum carrinho aberto agora.'
+        : s.carrinhos.length + ' carrinhos por fechar, ' + this.fmt(s.carrinhos.reduce((t, c) => t + c.linhas.reduce((x, l) => x + this.prod(l.id).preco * l.qty, 0), 0)) + ' em jogo.',
+
+      // ── Clientes
+      clientes: s.clientes.map(c => {
+        const enc = this.vivas().filter(v => v.clienteId === c.id);
+        return {
+          nome: c.nome, email: c.email, tel: c.tel, morada: c.cp + ' ' + c.localidade,
+          nEnc: enc.length, gastoFmt: this.fmt(enc.reduce((t, v) => t + this.vendaTotal(v), 0)),
+          fiel: enc.length >= 3 ? 'inline-flex' : 'none',
+          editar: this.abrirCliente(c.id), apagar: this.apagarCliente(c.id),
+          fundo: s.clienteEdit === c.id ? 'var(--color-accent-100)' : 'transparent'
+        };
+      }),
+      novoCliente: this.abrirCliente('novo'),
+      cEditando: !!s.clienteDraft,
+      cEditandoShow: s.clienteDraft ? 'block' : 'none',
+      cTitulo: s.clienteEdit === 'novo' ? 'Novo cadastro' : 'Editar cadastro',
+      c: s.clienteDraft || { nome: '', email: '', tel: '', cp: '', localidade: '' },
+      setCNome: this.setCliente('nome'), setCEmail: this.setCliente('email'), setCTel: this.setCliente('tel'),
+      setCCp: this.setCliente('cp'), setCLocal: this.setCliente('localidade'),
+      guardarCadastro: this.guardarCliente(),
+      cancelarCadastro: () => this.setState({ clienteEdit: null, clienteDraft: null, aviso: '' }),
+      apagarCadastro: s.clienteDraft ? this.apagarCliente(s.clienteDraft.id) : () => {},
+      clientesResumo: s.clientes.length + ' cadastros, ' + s.clientes.filter(c => this.vivas().some(v => v.clienteId === c.id)).length + ' com compras feitas.',
+
+      // ── Pagamentos
+      metodos: METODOS.map(m => {
+        const usos = this.vivas().filter(v => v.metodo === m.key);
+        return {
+          label: m.label, nota: m.nota, on: !!s.pagamentosOn[m.key],
+          estado: s.pagamentosOn[m.key] ? 'Ligado' : 'Desligado',
+          variant: s.pagamentosOn[m.key] ? 'tag-accent' : 'tag-neutral',
+          usos: usos.length, valorFmt: this.fmt(usos.reduce((t, v) => t + this.vendaTotal(v), 0)),
+          barra: Math.round((usos.length / Math.max(1, this.vivas().length)) * 100) + '%',
+          alterna: this.alternaMetodo(m.key)
+        };
+      }),
+      transacoes: s.vendas.slice().sort((a, b) => b.dia - a.dia).map(v => ({
+        ref: v.ref, dia: v.dia + '/08', cliente: this.cliente(v.clienteId).nome,
+        metodoLabel: (METODOS.find(m => m.key === v.metodo) || {}).label || '—',
+        totalFmt: this.fmt(this.vendaTotal(v)),
+        estadoLabel: v.estado === 'anulada' ? 'Anulada' : (v.pago ? 'Paga' : 'Por pagar'),
+        estadoVariant: v.estado === 'anulada' ? 'tag-neutral' : (v.pago ? 'tag-outline' : 'tag-accent'),
+        acaoLabel: v.pago ? 'Marcar por pagar' : 'Marcar paga',
+        alterna: this.alternaPago(v.ref)
+      })),
+      porPagarFmt: this.fmt(this.vivas().filter(v => !v.pago).reduce((t, v) => t + this.vendaTotal(v), 0)),
+      nPorPagar: this.vivas().filter(v => !v.pago).length,
+      pagamentosResumo: this.vivas().filter(v => v.pago).length + ' encomendas pagas e ' +
+        this.vivas().filter(v => !v.pago).length + ' à espera de confirmação.',
+      formProd: s.formProd, formQty: s.formQty, formMotivo: s.formMotivo, aviso: s.aviso,
+      setFormProd: e => this.setState({ formProd: Number(e.target.value) }),
+      setFormQty: e => this.setState({ formQty: Number(e.target.value) }),
+      setFormMotivo: e => this.setState({ formMotivo: e.target.value }),
+      addEntrada: this.registar('entrada'), addSaida: this.registar('saida'), addVenda: this.registar('venda'),
+      movimentos: movsOrd.map(m => ({
+        dia: String(m.dia) + '/08', tipoLabel: m.tipo === 'entrada' ? 'Entrada' : 'Saída · ' + MOTIVOS[m.motivo || 'quebra'],
+        variant: m.tipo === 'entrada' ? 'tag-outline' : 'tag-accent-2',
+        peca: this.prod(m.id).nome, qty: (m.tipo === 'entrada' ? '+' : '−') + m.qty
+      })),
+      inventario: inventario,
+      valorStockFmt: this.fmt(this.lista.reduce((t, p) => t + Math.max(0, this.stockDe(p.id)) * p.custo, 0)),
+
+      vendasResumo: 'Caixa de ' + this.fmt(receita) + ' em ' + dias.length + ' dias com vendas. ' +
+        'Talão médio de ' + this.fmt(receita / Math.max(1, vendas.length)) + '.',
+      nVendas: vendas.length,
+      nPecas: vendas.reduce((t, v) => t + this.vendaPecas(v), 0),
+      talaoFmt: this.fmt(receita / Math.max(1, vendas.length)),
+      melhorDiaFmt: melhor ? this.fmt(melhor.total) : '—',
+      melhorDiaTexto: melhor ? 'dia ' + melhor.dia + ' de agosto' : 'sem vendas',
+      caixaDias: dias.map(d => ({
+        dia: d.dia + '/08', refs: d.refs.join(', '), pecas: d.pecas, totalFmt: this.fmt(d.total),
+        barra: Math.round((d.total / maxDia) * 100) + '%'
+      })),
+      ranking: rank.map(r => {
+        const p = this.prod(r.id);
+        return { nome: p.nome, qty: r.qty, swatch: this.swatch(p), barra: Math.round((r.qty / maxRank) * 100) + '%' };
+      }),
+
+      financeiroResumo: 'Cada peça deixa em média ' + this.pct(margem) + ' depois do tecido, do envio e das contas fixas do ateliê.',
+      enviosCobradosFmt: this.fmt(enviosCobrados),
+      custoMateriaisFmt: '−' + this.fmt(custoMateriais),
+      custoEnviosFmt: '−' + this.fmt(custoEnvios),
+      fixos: FIXOS.map(f => ({ label: f.label, valorFmt: '−' + this.fmt(f.valor) })),
+      equilibrioFmt: this.fmt(equilibrio),
+      equilibrioPct: this.pct(Math.min(1, receita / equilibrio)),
+      equilibrioCor: receita >= equilibrio ? 'var(--color-text)' : 'var(--color-accent-700)',
+      projVendasFmt: this.fmt(projVendas),
+      projLucroFmt: this.fmt(projLucro),
+      projLucroCor: projLucro >= 0 ? 'var(--color-text)' : 'var(--color-accent-700)',
+      projecaoTexto: 'Ao ritmo de ' + this.fmt(receita / DIA) + ' por dia, agosto fecha em ' + this.fmt(projVendas) +
+        ' — ' + (projVendas >= this.meta ? this.fmt(projVendas - this.meta) + ' acima da meta.' : this.fmt(this.meta - projVendas) + ' abaixo da meta de ' + this.fmt(this.meta) + '.'),
+      historico: historico
+    };
+  }
+}
+</script>
+</body>
+</html>

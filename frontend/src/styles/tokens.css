@@ -1,0 +1,66 @@
+/* Tokens do design system Broadsheet re-tingido em pastéis (handoff §1). */
+:root {
+  /* ground / ink */
+  --color-bg: #fdf8f4;
+  --color-surface: #fbeee6;
+  --color-text: #3b2a31;
+  --color-divider: color-mix(in srgb, #3b2a31 14%, transparent);
+
+  /* acento primário (rosa) — botões, links, kickers */
+  --color-accent: #c2668a;
+  --color-accent-100: #fdeef3;
+  --color-accent-200: #fadbe6;
+  --color-accent-300: #f5bfd2;
+  --color-accent-400: #e69ab5;
+  --color-accent-500: #d4799a;
+  --color-accent-600: #b25679;
+  --color-accent-700: #994665;
+  --color-accent-800: #7a3751;
+  --color-accent-900: #4f2334;
+
+  /* acento secundário (lilás) — raro, nunca com o primário no mesmo componente */
+  --color-accent-2: #8873c2;
+  --color-accent-2-100: #f3f0fc;
+  --color-accent-2-200: #e6e0f8;
+  --color-accent-2-300: #d2c7f0;
+  --color-accent-2-400: #b7a6e4;
+  --color-accent-2-500: #9d89d4;
+  --color-accent-2-600: #7c66b4;
+  --color-accent-2-700: #65529a;
+  --color-accent-2-800: #4e3f78;
+  --color-accent-2-900: #332a4f;
+
+  /* neutros — etiquetas e estados sem cor de acento */
+  --color-neutral-100: #f8f4f4;
+  --color-neutral-200: #eae7e7;
+  --color-neutral-300: #d7d3d3;
+  --color-neutral-400: #bab6b6;
+  --color-neutral-500: #9b9797;
+  --color-neutral-600: #7d7979;
+  --color-neutral-700: #605d5d;
+  --color-neutral-800: #444141;
+  --color-neutral-900: #2d2b2b;
+
+  /* tipografia — uma só família, serif, também para botões/inputs */
+  --font-heading: 'Source Serif 4', system-ui, sans-serif;
+  --font-heading-weight: 600;
+  --font-body: 'Source Serif 4', system-ui, sans-serif;
+
+  /* espaçamento em escala 1.25× e raios pequenos */
+  --space-1: 5px;
+  --space-2: 10px;
+  --space-3: 15px;
+  --space-4: 20px;
+  --space-6: 30px;
+  --space-8: 40px;
+  --radius-sm: 1px;
+  --radius-md: 2px;
+  --radius-lg: 4px;
+
+  --shadow-sm: 0 1px 2px color-mix(in srgb, #2d2b2b 14%, transparent);
+  --shadow-md: 0 3px 10px color-mix(in srgb, #2d2b2b 16%, transparent);
+  --shadow-lg: 0 12px 32px color-mix(in srgb, #2d2b2b 22%, transparent);
+
+  /* bordos ondulados (folhos) — 0 desliga */
+  --ruffle-op: 1;
+}

@@ -1,0 +1,844 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="stylesheet" href="_ds/broadsheet-98a61f7d-6643-493e-973b-8befe0382739/styles.css">
+<script src="_ds/broadsheet-98a61f7d-6643-493e-973b-8befe0382739/_ds_bundle.js"></script>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,600;0,8..60,700;1,8..60,400&display=swap">
+<style>
+:root{
+  --color-bg:#fdf8f4; --color-surface:#fbeee6; --color-text:#3b2a31;
+  --color-divider:color-mix(in srgb,#3b2a31 14%,transparent);
+  --color-accent:#c2668a; --color-accent-2:#8873c2;
+  --color-accent-100:#fdeef3; --color-accent-200:#fadbe6; --color-accent-300:#f5bfd2;
+  --color-accent-400:#e69ab5; --color-accent-500:#d4799a; --color-accent-600:#b25679;
+  --color-accent-700:#994665; --color-accent-800:#7a3751; --color-accent-900:#4f2334;
+  --color-accent-2-100:#f3f0fc; --color-accent-2-200:#e6e0f8; --color-accent-2-300:#d2c7f0;
+  --color-accent-2-400:#b7a6e4; --color-accent-2-500:#9d89d4; --color-accent-2-600:#7c66b4;
+  --color-accent-2-700:#65529a; --color-accent-2-800:#4e3f78; --color-accent-2-900:#332a4f;
+  --ruffle-op:1;
+}
+body{margin:0;background:var(--color-bg);color:var(--color-text);font-family:var(--font-body);}
+a{color:var(--color-accent-700);text-underline-offset:3px;}
+a:hover{color:var(--color-accent-800);}
+</style>
+</helmet>
+
+<template id="__bundler_thumbnail"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 120"><rect width="120" height="120" fill="#fbdce6"/><g fill="#c2668a"><rect x="36" y="34" width="6" height="52"/><rect x="36" y="80" width="20" height="6"/><rect x="68" y="34" width="6" height="52"/><rect x="68" y="80" width="20" height="6"/></g></svg></template>
+<div ref="{{ rootRef }}" style="min-height:100vh;display:flex;flex-direction:column;background:var(--color-bg)">
+
+  <div style="position:sticky;top:0;z-index:20;background:var(--color-bg)">
+    <div style="max-width:1180px;margin:0 auto;padding:0 var(--space-6);width:100%;box-sizing:border-box">
+      <div style="display:flex;align-items:flex-end;gap:var(--space-4);padding:var(--space-4) 0 var(--space-2)">
+        <a onClick="{{ goHome }}" style="cursor:pointer;text-decoration:none;color:var(--color-text)">
+          <div style="font-family:var(--font-heading);font-weight:700;font-size:30px;line-height:1;letter-spacing:-0.02em">Little Frill</div>
+          <div style="font-size:11px;letter-spacing:0.14em;text-transform:uppercase;color:var(--color-accent-700);margin-top:5px">by Arrais</div>
+          <div style="font-style:italic;font-size:14px;color:color-mix(in srgb,var(--color-text) 62%,transparent);margin-top:3px">feito à mão, feito com calma</div>
+        </a>
+        <div style="margin-left:auto;display:flex;align-items:center;gap:var(--space-3)">
+          <a onClick="{{ goLogin }}" style="cursor:pointer;font-size:13px">Entrar</a>
+          <a onClick="{{ goRegisto }}" style="cursor:pointer;font-size:13px">Criar conta</a>
+          <button class="btn btn-primary" onClick="{{ goCart }}" style="cursor:pointer;white-space:nowrap">{{ cartLabel }}</button>
+        </div>
+      </div>
+      <div style="height:3px;background:var(--color-text)"></div>
+      <div class="nav" style="padding:7px 0;gap:var(--space-4);flex-wrap:wrap">
+        <sc-for list="{{ secs }}" as="s" hint-placeholder-count="7">
+          <a onClick="{{ s.open }}" aria-current="{{ s.cur }}" style="cursor:pointer;font-size:12px;letter-spacing:0.1em;text-transform:uppercase">{{ s.label }}</a>
+        </sc-for>
+        <span style="margin-left:auto;font-size:12px;font-style:italic;color:color-mix(in srgb,var(--color-text) 55%,transparent)">Envio grátis acima de {{ freeFmt }}</span>
+      </div>
+      <div style="height:1px;background:var(--color-text)"></div>
+    </div>
+  </div>
+
+  <div style="flex:1;max-width:1180px;margin:0 auto;padding:var(--space-8) var(--space-6) 80px;width:100%;box-sizing:border-box">
+
+    <sc-if value="{{ isHome }}" hint-placeholder-val="{{ true }}">
+      <div>
+        <div style="display:grid;grid-template-columns:1.05fr 0.95fr;gap:var(--space-8);align-items:end">
+          <div style="padding-bottom:var(--space-4)">
+            <div style="font-size:12px;letter-spacing:0.12em;text-transform:uppercase;color:var(--color-accent-700);margin-bottom:var(--space-3)">Ateliê · Lisboa, Portugal</div>
+            <h1 style="font-size:70px;line-height:0.98;letter-spacing:-0.025em;margin:0 0 var(--space-3);max-width:11em">Presentes que não existem em mais nenhuma casa.</h1>
+            <p style="font-size:17px;font-style:italic;color:var(--color-accent-700);margin:0 0 var(--space-3)">Cada peça tem par: leve o conjunto e poupe no envio.</p>
+            <p style="font-size:19px;line-height:1.5;max-width:34em;color:color-mix(in srgb,var(--color-text) 78%,transparent)">Bolsas, necessaires, capas de portátil e de Kindle, porta-moedas — e o enxoval todo para o bebé, a mesa, o banho, a cama, a cozinha e os pets da casa.</p>
+            <div style="display:flex;gap:var(--space-2);margin-top:var(--space-4)">
+              <button class="btn btn-primary" onClick="{{ goCatalogo }}" style="cursor:pointer;font-size:15px;padding:12px 22px">Ver todas as peças</button>
+              <button class="btn btn-secondary" onClick="{{ openAcessorios }}" style="cursor:pointer;font-size:15px;padding:12px 22px">Acessórios</button>
+            </div>
+          </div>
+          <div>
+            <div style="height:420px;border-radius:var(--radius-md);background:repeating-linear-gradient(90deg,color-mix(in srgb,#f2b8cd 60%,transparent) 0 30px,transparent 30px 60px),repeating-linear-gradient(0deg,color-mix(in srgb,#f2b8cd 60%,transparent) 0 30px,transparent 30px 60px),#fbdce6"></div>
+            <div style="height:16px;opacity:var(--ruffle-op);background:radial-gradient(circle at 14px -2px,transparent 13px,#fbdce6 13px) 0 0/28px 16px repeat-x"></div>
+            <div style="font-size:11px;color:color-mix(in srgb,var(--color-text) 55%,transparent);margin-top:var(--space-2)">Algodão xadrez rosa, o padrão da casa desde 2019.</div>
+          </div>
+        </div>
+
+        <h2 style="font-size:15px;letter-spacing:0.1em;text-transform:uppercase;margin:80px 0 var(--space-4);font-weight:400">Secções da casa</h2>
+        <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:var(--space-4)">
+          <sc-for list="{{ secTiles }}" as="t" hint-placeholder-count="7">
+            <a onClick="{{ t.open }}" style="cursor:pointer;text-decoration:none;color:var(--color-text)">
+              <div style="height:130px;border-radius:var(--radius-md);background:{{ t.swatch }}"></div>
+              <div style="height:11px;opacity:var(--ruffle-op);background:radial-gradient(circle at 10px -2px,transparent 9px,{{ t.lt }} 9px) 0 0/20px 11px repeat-x"></div>
+              <div style="font-family:var(--font-heading);font-size:18px;margin-top:8px">{{ t.label }}</div>
+              <div style="font-size:12px;color:color-mix(in srgb,var(--color-text) 55%,transparent)">{{ t.count }} peças</div>
+            </a>
+          </sc-for>
+        </div>
+
+        <div style="display:flex;align-items:baseline;gap:var(--space-4);margin:80px 0 var(--space-4)">
+          <h2 style="font-size:34px;margin:0">Saíram do ateliê esta semana</h2>
+          <a onClick="{{ goCatalogo }}" style="cursor:pointer;font-size:13px;margin-left:auto">Ver tudo →</a>
+        </div>
+        <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(230px,1fr));gap:var(--space-6)">
+          <sc-for list="{{ novidades }}" as="p" hint-placeholder-count="4">
+            <div>
+              <div onClick="{{ p.open }}" style="cursor:pointer;height:250px;border-radius:var(--radius-md);background:{{ p.swatch }}"></div>
+              <div style="font-size:10px;letter-spacing:0.1em;text-transform:uppercase;color:var(--color-accent-700);margin-top:10px">{{ p.tipo }}</div>
+              <div onClick="{{ p.open }}" style="cursor:pointer;font-family:var(--font-heading);font-weight:600;font-size:19px;line-height:1.15;margin-top:2px">{{ p.nome }}</div>
+              <div style="display:flex;align-items:center;gap:var(--space-2);margin-top:6px">
+                <span style="font-size:16px">{{ p.precoFmt }}</span>
+                <button class="btn btn-secondary" onClick="{{ p.add }}" style="cursor:pointer;margin-left:auto;font-size:13px">Juntar ao carrinho</button>
+              </div>
+            </div>
+          </sc-for>
+        </div>
+
+        <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:var(--space-8);margin-top:90px;max-width:960px">
+          <div>
+            <h3 style="font-size:21px;margin-bottom:var(--space-2)">Uma pessoa, uma máquina</h3>
+            <p style="font-size:14px;color:color-mix(in srgb,var(--color-text) 75%,transparent)">Tudo é cortado, cosido e passado a ferro no ateliê. Se pedir dois iguais, saem dois iguais — nunca idênticos.</p>
+          </div>
+          <div>
+            <h3 style="font-size:21px;margin-bottom:var(--space-2)">Tecidos que aguentam</h3>
+            <p style="font-size:14px;color:color-mix(in srgb,var(--color-text) 75%,transparent)">Algodão e linho pré-lavados, forro de sarja e fita de viés feita do mesmo pano. Máquina a 30°, sem drama.</p>
+          </div>
+          <div>
+            <h3 style="font-size:21px;margin-bottom:var(--space-2)">Envio de Portugal</h3>
+            <p style="font-size:14px;color:color-mix(in srgb,var(--color-text) 75%,transparent)">Expedimos em 2 a 4 dias úteis por CTT, ou pode vir buscar ao ateliê. Grátis acima de {{ freeFmt }}.</p>
+          </div>
+        </div>
+      </div>
+    </sc-if>
+
+    <sc-if value="{{ isCat }}">
+      <div>
+        <div style="display:flex;align-items:flex-end;gap:var(--space-4);margin-bottom:var(--space-6)">
+          <div>
+            <div style="font-size:12px;letter-spacing:0.12em;text-transform:uppercase;color:var(--color-accent-700)">Catálogo</div>
+            <h1 style="font-size:52px;margin:6px 0 0;letter-spacing:-0.02em">{{ catTitle }}</h1>
+          </div>
+          <div style="margin-left:auto;display:flex;align-items:center;gap:var(--space-2);font-size:13px">
+            <span style="color:color-mix(in srgb,var(--color-text) 55%,transparent)">{{ countText }}</span>
+            <select class="input" onChange="{{ onOrdenar }}" style="width:auto;min-width:180px">
+              <option value="destaque">Ordenar: destaque</option>
+              <option value="baratos">Preço, mais baixo</option>
+              <option value="caros">Preço, mais alto</option>
+              <option value="nome">Nome A–Z</option>
+            </select>
+          </div>
+        </div>
+
+        <div style="display:grid;grid-template-columns:210px 1fr;gap:var(--space-8);align-items:start">
+          <aside style="position:sticky;top:150px">
+            <div style="font-size:11px;letter-spacing:0.1em;text-transform:uppercase;color:color-mix(in srgb,var(--color-text) 55%,transparent);margin-bottom:var(--space-2)">Secção</div>
+            <div style="display:flex;flex-direction:column;gap:4px;margin-bottom:var(--space-6)">
+              <sc-for list="{{ secFilters }}" as="f" hint-placeholder-count="8">
+                <a onClick="{{ f.pick }}" aria-current="{{ f.cur }}" style="cursor:pointer;font-size:14px;color:{{ f.color }};display:flex;gap:8px">
+                  <span>{{ f.label }}</span>
+                  <span style="margin-left:auto;font-size:11px;opacity:0.55">{{ f.count }}</span>
+                </a>
+              </sc-for>
+            </div>
+
+            <div style="font-size:11px;letter-spacing:0.1em;text-transform:uppercase;color:color-mix(in srgb,var(--color-text) 55%,transparent);margin-bottom:var(--space-2)">Padrão</div>
+            <div style="display:flex;flex-wrap:wrap;gap:6px;margin-bottom:var(--space-6)">
+              <sc-for list="{{ padroes }}" as="p" hint-placeholder-count="5">
+                <button class="tag {{ p.variant }}" onClick="{{ p.pick }}" style="cursor:pointer;border:0;font-family:var(--font-body)">{{ p.label }}</button>
+              </sc-for>
+            </div>
+
+            <div style="font-size:11px;letter-spacing:0.1em;text-transform:uppercase;color:color-mix(in srgb,var(--color-text) 55%,transparent);margin-bottom:var(--space-2)">Cor</div>
+            <div style="display:flex;gap:8px;margin-bottom:var(--space-6)">
+              <sc-for list="{{ cores }}" as="c" hint-placeholder-count="6">
+                <button onClick="{{ c.pick }}" title="{{ c.label }}" style="cursor:pointer;width:26px;height:26px;border-radius:50%;background:{{ c.md }};border:2px solid {{ c.ring }};padding:0"></button>
+              </sc-for>
+            </div>
+
+            <div style="font-size:11px;letter-spacing:0.1em;text-transform:uppercase;color:color-mix(in srgb,var(--color-text) 55%,transparent);margin-bottom:var(--space-2)">Até {{ maxPrecoFmt }}</div>
+            <input type="range" min="9" max="90" step="1" value="{{ maxPreco }}" onChange="{{ onPreco }}" onInput="{{ onPreco }}" style="width:100%;accent-color:var(--color-accent);margin-bottom:var(--space-4)">
+
+            <label class="radio" style="margin-bottom:var(--space-4)">
+              <input type="checkbox" checked="{{ soStock }}" onChange="{{ onSoStock }}">
+              <span class="dot" style="border-radius:2px"></span>
+              <span>Só o que está pronto</span>
+            </label>
+
+            <div>
+              <a onClick="{{ limpar }}" style="cursor:pointer;font-size:13px;font-style:italic">Limpar filtros</a>
+            </div>
+          </aside>
+
+          <div>
+            <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(215px,1fr));gap:var(--space-6)">
+              <sc-for list="{{ prods }}" as="p" hint-placeholder-count="9">
+                <div>
+                  <div onClick="{{ p.open }}" style="cursor:pointer;position:relative;height:240px;border-radius:var(--radius-md);background:{{ p.swatch }}">
+                    <span class="tag {{ p.badgeVariant }}" style="position:absolute;top:10px;left:10px;display:{{ p.badgeShow }}">{{ p.badge }}</span>
+                  </div>
+                  <div style="height:11px;opacity:var(--ruffle-op);background:radial-gradient(circle at 10px -2px,transparent 9px,{{ p.lt }} 9px) 0 0/20px 11px repeat-x"></div>
+                  <div style="font-size:10px;letter-spacing:0.1em;text-transform:uppercase;color:var(--color-accent-700);margin-top:8px">{{ p.tipo }}</div>
+                  <div onClick="{{ p.open }}" style="cursor:pointer;font-family:var(--font-heading);font-weight:600;font-size:18px;line-height:1.15;margin-top:2px">{{ p.nome }}</div>
+                  <div style="font-size:12px;font-style:italic;color:color-mix(in srgb,var(--color-text) 55%,transparent);margin-top:3px">{{ p.stockText }}</div>
+                  <div style="display:flex;align-items:center;gap:var(--space-2);margin-top:8px">
+                    <span style="font-size:16px">{{ p.precoFmt }}</span>
+                    <button class="btn btn-secondary" onClick="{{ p.add }}" style="cursor:pointer;margin-left:auto;font-size:13px">Juntar</button>
+                  </div>
+                </div>
+              </sc-for>
+            </div>
+
+            <sc-if value="{{ vazio }}">
+              <div style="padding:var(--space-8) 0">
+                <h3 style="font-size:26px;margin-bottom:var(--space-2)">Nada com esses filtros.</h3>
+                <p style="max-width:26em;color:color-mix(in srgb,var(--color-text) 70%,transparent)">Solte um filtro ou dois — ou diga-nos o que procura e costuramos por encomenda.</p>
+                <button class="btn btn-primary" onClick="{{ limpar }}" style="cursor:pointer">Limpar filtros</button>
+              </div>
+            </sc-if>
+
+            <div style="height:2px;background:var(--color-text);margin:80px 0 var(--space-4)"></div>
+            <h2 style="font-size:34px;margin:0 0 4px">Combina com</h2>
+            <p style="font-style:italic;color:color-mix(in srgb,var(--color-text) 62%,transparent);max-width:30em">Pares que saem juntos do ateliê — mesmo pano, mesma fita de viés.</p>
+            <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:var(--space-4);margin-top:var(--space-4)">
+              <sc-for list="{{ sugestoes }}" as="s" hint-placeholder-count="3">
+                <div class="card" style="background:var(--color-surface)">
+                  <div style="display:flex;gap:var(--space-3);align-items:center">
+                    <div onClick="{{ s.open }}" style="cursor:pointer;width:76px;height:76px;flex:none;border-radius:var(--radius-md);background:{{ s.swatch }}"></div>
+                    <div>
+                      <div class="card-kicker">Vai bem com {{ s.par }}</div>
+                      <div class="card-title" style="margin-top:2px">{{ s.nome }}</div>
+                      <div style="font-size:14px;margin-top:4px">{{ s.precoFmt }}</div>
+                    </div>
+                  </div>
+                  <button class="btn btn-primary btn-block" onClick="{{ s.addPar }}" style="cursor:pointer">Juntar o par · {{ s.parTotalFmt }}</button>
+                </div>
+              </sc-for>
+            </div>
+          </div>
+        </div>
+      </div>
+    </sc-if>
+
+    <sc-if value="{{ isProd }}">
+      <div>
+        <a onClick="{{ goCatalogo }}" style="cursor:pointer;font-size:13px">← Voltar ao catálogo</a>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:var(--space-8);margin-top:var(--space-4);align-items:start">
+          <div>
+            <div style="height:520px;border-radius:var(--radius-md);background:{{ prod.swatch }}"></div>
+            <div style="height:16px;opacity:var(--ruffle-op);background:radial-gradient(circle at 14px -2px,transparent 13px,{{ prod.lt }} 13px) 0 0/28px 16px repeat-x"></div>
+            <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:var(--space-2);margin-top:var(--space-3)">
+              <sc-for list="{{ prodVistas }}" as="v" hint-placeholder-count="3">
+                <div style="height:96px;border-radius:var(--radius-md);background:{{ v.swatch }}"></div>
+              </sc-for>
+            </div>
+            <div style="font-size:11px;color:color-mix(in srgb,var(--color-text) 55%,transparent);margin-top:var(--space-2)">Frente, interior forrado e detalhe do folho.</div>
+          </div>
+          <div style="padding-top:var(--space-2)">
+            <div style="font-size:12px;letter-spacing:0.12em;text-transform:uppercase;color:var(--color-accent-700)">{{ prod.tipo }}{{ prod.secLabel }}</div>
+            <h1 style="font-size:46px;margin:8px 0 var(--space-3);letter-spacing:-0.02em">{{ prod.nome }}</h1>
+            <div style="font-size:28px;font-family:var(--font-heading)">{{ prod.precoFmt }}</div>
+            <p style="margin-top:var(--space-4);font-size:16px;max-width:32em;color:color-mix(in srgb,var(--color-text) 80%,transparent)">{{ prod.desc }}</p>
+            <div style="display:flex;gap:6px;margin:var(--space-3) 0 var(--space-4)">
+              <span class="tag tag-accent">{{ prod.padraoLabel }}</span>
+              <span class="tag tag-neutral">{{ prod.corLabel }}</span>
+              <span class="tag tag-outline">{{ prod.stockText }}</span>
+            </div>
+            <table class="table" style="max-width:420px;margin-bottom:var(--space-6)">
+              <tbody>
+                <tr><td style="width:40%;color:color-mix(in srgb,var(--color-text) 60%,transparent)">Medidas</td><td>{{ prod.medidas }}</td></tr>
+                <tr><td style="color:color-mix(in srgb,var(--color-text) 60%,transparent)">Tecido</td><td>{{ prod.tecido }}</td></tr>
+                <tr><td style="color:color-mix(in srgb,var(--color-text) 60%,transparent)">Lavagem</td><td>Máquina a 30°, ferro morno</td></tr>
+                <tr><td style="color:color-mix(in srgb,var(--color-text) 60%,transparent)">Envio</td><td>2 a 4 dias úteis · CTT</td></tr>
+              </tbody>
+            </table>
+            <div style="display:flex;align-items:center;gap:var(--space-3)">
+              <div style="display:flex;align-items:center;border:1px solid var(--color-divider);border-radius:var(--radius-md)">
+                <button class="btn" onClick="{{ qtyMenos }}" style="cursor:pointer;width:38px">–</button>
+                <span style="min-width:28px;text-align:center;font-size:15px">{{ qty }}</span>
+                <button class="btn" onClick="{{ qtyMais }}" style="cursor:pointer;width:38px">+</button>
+              </div>
+              <button class="btn btn-primary" onClick="{{ addProd }}" style="cursor:pointer;font-size:15px;padding:13px 26px">Juntar ao carrinho</button>
+              <button class="btn btn-secondary" onClick="{{ goCart }}" style="cursor:pointer">Ver carrinho</button>
+            </div>
+            <div style="margin-top:80px">
+              <h2 style="font-size:26px;margin-bottom:var(--space-3)">Combina com</h2>
+              <div style="display:flex;flex-direction:column;gap:var(--space-3)">
+                <sc-for list="{{ prodCombina }}" as="c" hint-placeholder-count="2">
+                  <div style="display:flex;align-items:center;gap:var(--space-3)">
+                    <div onClick="{{ c.open }}" style="cursor:pointer;width:64px;height:64px;flex:none;border-radius:var(--radius-md);background:{{ c.swatch }}"></div>
+                    <div>
+                      <div style="font-family:var(--font-heading);font-size:17px">{{ c.nome }}</div>
+                      <div style="font-size:14px;color:color-mix(in srgb,var(--color-text) 62%,transparent)">{{ c.precoFmt }}</div>
+                    </div>
+                    <button class="btn btn-secondary" onClick="{{ c.add }}" style="cursor:pointer;margin-left:auto;font-size:13px">Juntar</button>
+                  </div>
+                </sc-for>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </sc-if>
+
+    <sc-if value="{{ isCart }}">
+      <div>
+        <h1 style="font-size:52px;margin:0 0 var(--space-6);letter-spacing:-0.02em">O seu carrinho</h1>
+        <sc-if value="{{ cartVazio }}">
+          <div style="max-width:30em">
+            <p style="font-size:18px;font-style:italic">Ainda está vazio — como uma mesa antes do almoço.</p>
+            <button class="btn btn-primary" onClick="{{ goCatalogo }}" style="cursor:pointer">Ver o catálogo</button>
+          </div>
+        </sc-if>
+        <sc-if value="{{ cartTem }}">
+          <div style="display:grid;grid-template-columns:1fr 320px;gap:var(--space-8);align-items:start">
+            <div>
+              <sc-for list="{{ lines }}" as="l" hint-placeholder-count="2">
+                <div style="display:flex;gap:var(--space-4);align-items:center;padding:var(--space-4) 0;border-top:1px solid var(--color-divider)">
+                  <div onClick="{{ l.open }}" style="cursor:pointer;width:92px;height:92px;flex:none;border-radius:var(--radius-md);background:{{ l.swatch }}"></div>
+                  <div style="flex:1">
+                    <div style="font-size:10px;letter-spacing:0.1em;text-transform:uppercase;color:var(--color-accent-700)">{{ l.tipo }}</div>
+                    <div style="font-family:var(--font-heading);font-weight:600;font-size:20px;margin-top:2px">{{ l.nome }}</div>
+                    <div style="font-size:13px;color:color-mix(in srgb,var(--color-text) 60%,transparent)">{{ l.precoFmt }} cada · {{ l.padraoLabel }}</div>
+                  </div>
+                  <div style="display:flex;align-items:center;border:1px solid var(--color-divider);border-radius:var(--radius-md)">
+                    <button class="btn" onClick="{{ l.menos }}" style="cursor:pointer;width:34px">–</button>
+                    <span style="min-width:26px;text-align:center;font-size:14px">{{ l.qty }}</span>
+                    <button class="btn" onClick="{{ l.mais }}" style="cursor:pointer;width:34px">+</button>
+                  </div>
+                  <div style="width:96px;text-align:right;font-size:17px">{{ l.totalFmt }}</div>
+                  <button class="btn btn-ghost" onClick="{{ l.remover }}" style="cursor:pointer;font-size:13px">remover</button>
+                </div>
+              </sc-for>
+              <div style="border-top:1px solid var(--color-divider);padding-top:var(--space-4)">
+                <a onClick="{{ goCatalogo }}" style="cursor:pointer;font-size:13px">← Continuar a escolher</a>
+              </div>
+            </div>
+            <div class="card elev-sm">
+              <div class="card-kicker">Resumo</div>
+              <div style="display:flex;justify-content:space-between;font-size:15px"><span>Subtotal</span><span>{{ subtotalFmt }}</span></div>
+              <div style="display:flex;justify-content:space-between;font-size:15px"><span>Envio</span><span>{{ envioFmt }}</span></div>
+              <div style="font-size:12px;font-style:italic;color:color-mix(in srgb,var(--color-text) 60%,transparent)">{{ envioNota }}</div>
+              <div style="height:1px;background:var(--color-divider);margin:var(--space-2) 0"></div>
+              <div style="display:flex;justify-content:space-between;font-family:var(--font-heading);font-size:22px"><span>Total</span><span>{{ totalFmt }}</span></div>
+              <button class="btn btn-primary btn-block" onClick="{{ goMorada }}" style="cursor:pointer;font-size:15px;padding:13px">Finalizar compra</button>
+            </div>
+          </div>
+        </sc-if>
+      </div>
+    </sc-if>
+
+    <sc-if value="{{ isMorada }}">
+      <div>
+        <div style="display:flex;gap:var(--space-4);font-size:12px;letter-spacing:0.1em;text-transform:uppercase;margin-bottom:var(--space-4)">
+          <span style="color:var(--color-accent-700)">1 · Morada</span>
+          <span style="opacity:0.45">2 · Pagamento</span>
+          <span style="opacity:0.45">3 · Confirmação</span>
+        </div>
+        <h1 style="font-size:48px;margin:0 0 var(--space-6);letter-spacing:-0.02em">Onde entregamos?</h1>
+        <div style="display:grid;grid-template-columns:1fr 320px;gap:var(--space-8);align-items:start">
+          <div>
+            <div style="display:grid;grid-template-columns:1fr 1fr;gap:var(--space-3);max-width:620px">
+              <div class="field"><label>Nome completo</label><input class="input" placeholder="Maria Arrais"></div>
+              <div class="field"><label>Telefone</label><input class="input" placeholder="+351 912 345 678"></div>
+              <div class="field" style="grid-column:span 2"><label>E-mail</label><input class="input" type="email" placeholder="maria@exemplo.pt"></div>
+              <div class="field" style="grid-column:span 2"><label>Morada</label><input class="input" placeholder="Rua das Flores, 24"></div>
+              <div class="field"><label>Andar / porta</label><input class="input" placeholder="2.º Dto."></div>
+              <div class="field"><label>Código postal</label><input class="input" placeholder="2510-000" onChange="{{ onCP }}"></div>
+              <div class="field"><label>Localidade</label><input class="input" placeholder="Óbidos"></div>
+              <div class="field"><label>Distrito</label>
+                <select class="input">
+                  <sc-for list="{{ distritos }}" as="d" hint-placeholder-count="6">
+                    <option>{{ d }}</option>
+                  </sc-for>
+                </select>
+              </div>
+              <div class="field" style="grid-column:span 2"><label>Notas para o ateliê (opcional)</label><textarea class="input" placeholder="É um presente — pode juntar um cartão escrito à mão?"></textarea></div>
+            </div>
+
+            <h2 style="font-size:22px;margin:var(--space-8) 0 var(--space-3)">Como quer receber</h2>
+            <div style="display:flex;flex-direction:column;gap:var(--space-3);max-width:620px">
+              <sc-for list="{{ envios }}" as="e" hint-placeholder-count="2">
+                <label class="radio" style="align-items:flex-start;gap:12px">
+                  <input type="radio" name="envio" checked="{{ e.sel }}" onChange="{{ e.pick }}">
+                  <span class="dot" style="margin-top:3px"></span>
+                  <span>
+                    <span style="font-family:var(--font-heading);font-size:16px">{{ e.label }}</span>
+                    <span style="display:block;font-size:13px;color:color-mix(in srgb,var(--color-text) 62%,transparent)">{{ e.nota }}</span>
+                  </span>
+                  <span style="margin-left:auto;font-size:15px">{{ e.custoFmt }}</span>
+                </label>
+              </sc-for>
+            </div>
+            <p style="font-size:13px;font-style:italic;color:color-mix(in srgb,var(--color-text) 60%,transparent);margin-top:var(--space-4);max-width:44em">Entregamos apenas em Portugal — continente e ilhas. Encomendas para as ilhas seguem por CTT com 1 a 2 dias extra.</p>
+            <button class="btn btn-primary" onClick="{{ goPagamento }}" style="cursor:pointer;font-size:15px;padding:13px 26px;margin-top:var(--space-4)">Continuar para pagamento</button>
+          </div>
+          <div class="card elev-sm">
+            <div class="card-kicker">{{ countCesto }}</div>
+            <sc-for list="{{ lines }}" as="l" hint-placeholder-count="2">
+              <div style="display:flex;gap:10px;align-items:center;font-size:13px">
+                <div style="width:38px;height:38px;flex:none;border-radius:2px;background:{{ l.swatch }}"></div>
+                <span>{{ l.nome }} × {{ l.qty }}</span>
+                <span style="margin-left:auto">{{ l.totalFmt }}</span>
+              </div>
+            </sc-for>
+            <div style="height:1px;background:var(--color-divider);margin:var(--space-2) 0"></div>
+            <div style="display:flex;justify-content:space-between;font-size:14px"><span>Subtotal</span><span>{{ subtotalFmt }}</span></div>
+            <div style="display:flex;justify-content:space-between;font-size:14px"><span>Envio</span><span>{{ envioFmt }}</span></div>
+            <div style="display:flex;justify-content:space-between;font-family:var(--font-heading);font-size:21px;margin-top:6px"><span>Total</span><span>{{ totalFmt }}</span></div>
+          </div>
+        </div>
+      </div>
+    </sc-if>
+
+    <sc-if value="{{ isPag }}">
+      <div>
+        <div style="display:flex;gap:var(--space-4);font-size:12px;letter-spacing:0.1em;text-transform:uppercase;margin-bottom:var(--space-4)">
+          <span style="opacity:0.45">1 · Morada</span>
+          <span style="color:var(--color-accent-700)">2 · Pagamento</span>
+          <span style="opacity:0.45">3 · Confirmação</span>
+        </div>
+        <h1 style="font-size:48px;margin:0 0 var(--space-6);letter-spacing:-0.02em">Pagamento</h1>
+        <div style="display:grid;grid-template-columns:1fr 320px;gap:var(--space-8);align-items:start">
+          <div style="max-width:620px">
+            <div style="display:flex;flex-direction:column;gap:var(--space-3)">
+              <sc-for list="{{ pagamentos }}" as="m" hint-placeholder-count="4">
+                <label class="radio" style="align-items:flex-start;gap:12px">
+                  <input type="radio" name="pag" checked="{{ m.sel }}" onChange="{{ m.pick }}">
+                  <span class="dot" style="margin-top:3px"></span>
+                  <span>
+                    <span style="font-family:var(--font-heading);font-size:16px">{{ m.label }}</span>
+                    <span style="display:block;font-size:13px;color:color-mix(in srgb,var(--color-text) 62%,transparent)">{{ m.nota }}</span>
+                  </span>
+                </label>
+              </sc-for>
+            </div>
+            <sc-if value="{{ mostrarCartao }}">
+              <div style="display:grid;grid-template-columns:1fr 1fr;gap:var(--space-3);margin-top:var(--space-6)">
+                <div class="field" style="grid-column:span 2"><label>Número do cartão</label><input class="input" placeholder="0000 0000 0000 0000"></div>
+                <div class="field"><label>Validade</label><input class="input" placeholder="MM/AA"></div>
+                <div class="field"><label>CVV</label><input class="input" placeholder="123"></div>
+              </div>
+            </sc-if>
+            <sc-if value="{{ mostrarMbway }}">
+              <div class="field" style="max-width:280px;margin-top:var(--space-6)"><label>Telefone MB WAY</label><input class="input" placeholder="+351 912 345 678"></div>
+            </sc-if>
+            <label class="radio" style="margin-top:var(--space-6)">
+              <input type="checkbox">
+              <span class="dot" style="border-radius:2px"></span>
+              <span style="font-size:14px">Quero fatura com NIF</span>
+            </label>
+            <div style="display:flex;gap:var(--space-3);margin-top:var(--space-6)">
+              <button class="btn btn-primary" onClick="{{ finalizar }}" style="cursor:pointer;font-size:15px;padding:13px 26px">Finalizar encomenda · {{ totalFmt }}</button>
+              <button class="btn btn-secondary" onClick="{{ goMorada }}" style="cursor:pointer">Voltar à morada</button>
+            </div>
+          </div>
+          <div class="card elev-sm">
+            <div class="card-kicker">{{ countCesto }}</div>
+            <sc-for list="{{ lines }}" as="l" hint-placeholder-count="2">
+              <div style="display:flex;gap:10px;align-items:center;font-size:13px">
+                <div style="width:38px;height:38px;flex:none;border-radius:2px;background:{{ l.swatch }}"></div>
+                <span>{{ l.nome }} × {{ l.qty }}</span>
+                <span style="margin-left:auto">{{ l.totalFmt }}</span>
+              </div>
+            </sc-for>
+            <div style="height:1px;background:var(--color-divider);margin:var(--space-2) 0"></div>
+            <div style="display:flex;justify-content:space-between;font-size:14px"><span>Envio</span><span>{{ envioFmt }}</span></div>
+            <div style="display:flex;justify-content:space-between;font-family:var(--font-heading);font-size:21px;margin-top:6px"><span>Total</span><span>{{ totalFmt }}</span></div>
+          </div>
+        </div>
+      </div>
+    </sc-if>
+
+    <sc-if value="{{ isDone }}">
+      <div style="max-width:660px">
+        <div style="display:flex;gap:var(--space-4);font-size:12px;letter-spacing:0.1em;text-transform:uppercase;margin-bottom:var(--space-4)">
+          <span style="opacity:0.45">1 · Morada</span>
+          <span style="opacity:0.45">2 · Pagamento</span>
+          <span style="color:var(--color-accent-700)">3 · Confirmação</span>
+        </div>
+        <h1 style="font-size:56px;margin:0 0 var(--space-3);letter-spacing:-0.025em">Ficou registada.</h1>
+        <p style="font-size:19px;color:color-mix(in srgb,var(--color-text) 78%,transparent)">Encomenda <strong>{{ order }}</strong>. Vai um e-mail com o resumo, e outro quando a máquina parar e a caixa seguir para os CTT.</p>
+        <div style="height:14px;opacity:var(--ruffle-op);background:radial-gradient(circle at 12px -2px,transparent 11px,var(--color-accent-200) 11px) 0 0/24px 14px repeat-x;margin:var(--space-6) 0"></div>
+        <div style="display:flex;justify-content:space-between;font-family:var(--font-heading);font-size:22px"><span>Total pago</span><span>{{ orderTotalFmt }}</span></div>
+        <p style="font-size:14px;color:color-mix(in srgb,var(--color-text) 62%,transparent);margin-top:var(--space-2)">{{ orderResumo }}</p>
+        <button class="btn btn-primary" onClick="{{ goCatalogo }}" style="cursor:pointer;margin-top:var(--space-4);font-size:15px;padding:13px 26px">Voltar à loja</button>
+      </div>
+    </sc-if>
+
+    <sc-if value="{{ isLogin }}">
+      <div style="max-width:400px;margin-top:var(--space-6)">
+        <h1 style="font-size:44px;margin:0 0 var(--space-2);letter-spacing:-0.02em">Entrar</h1>
+        <p style="color:color-mix(in srgb,var(--color-text) 70%,transparent)">Para ver encomendas antigas e guardar moradas.</p>
+        <div style="display:flex;flex-direction:column;gap:var(--space-3);margin-top:var(--space-4)">
+          <div class="field"><label>E-mail</label><input class="input" type="email" placeholder="maria@exemplo.pt"></div>
+          <div class="field"><label>Palavra-passe</label><input class="input" type="password" placeholder="••••••••"></div>
+        </div>
+        <div style="display:flex;align-items:center;gap:var(--space-3);margin-top:var(--space-3)">
+          <label class="radio"><input type="checkbox"><span class="dot" style="border-radius:2px"></span><span style="font-size:13px">Manter sessão</span></label>
+          <a onClick="{{ goLogin }}" style="cursor:pointer;font-size:13px;margin-left:auto">Esqueci-me</a>
+        </div>
+        <button class="btn btn-primary btn-block" onClick="{{ goHome }}" style="cursor:pointer;font-size:15px;padding:13px">Entrar</button>
+        <p style="font-size:14px;margin-top:var(--space-4)">Ainda não tem conta? <a onClick="{{ goRegisto }}" style="cursor:pointer">Criar conta</a></p>
+      </div>
+    </sc-if>
+
+    <sc-if value="{{ isReg }}">
+      <div style="max-width:520px;margin-top:var(--space-6)">
+        <h1 style="font-size:44px;margin:0 0 var(--space-2);letter-spacing:-0.02em">Criar conta</h1>
+        <p style="color:color-mix(in srgb,var(--color-text) 70%,transparent)">Guardamos morada e histórico. Nada de publicidade a mais.</p>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:var(--space-3);margin-top:var(--space-4)">
+          <div class="field"><label>Nome</label><input class="input" placeholder="Maria"></div>
+          <div class="field"><label>Sobrenome</label><input class="input" placeholder="Arrais"></div>
+          <div class="field" style="grid-column:span 2"><label>E-mail</label><input class="input" type="email" placeholder="maria@exemplo.pt"></div>
+          <div class="field"><label>Palavra-passe</label><input class="input" type="password" placeholder="mínimo 8 caracteres"></div>
+          <div class="field"><label>Repetir</label><input class="input" type="password"></div>
+          <div class="field"><label>Código postal</label><input class="input" placeholder="2510-000"></div>
+          <div class="field"><label>Distrito</label>
+            <select class="input">
+              <sc-for list="{{ distritos }}" as="d" hint-placeholder-count="6">
+                <option>{{ d }}</option>
+              </sc-for>
+            </select>
+          </div>
+        </div>
+        <label class="radio" style="margin-top:var(--space-4);align-items:flex-start"><input type="checkbox"><span class="dot" style="margin-top:3px;border-radius:2px"></span><span style="font-size:13px">Quero a carta do ateliê — uma vez por mês, com as peças novas.</span></label>
+        <button class="btn btn-primary btn-block" onClick="{{ goHome }}" style="cursor:pointer;font-size:15px;padding:13px">Criar conta</button>
+        <p style="font-size:14px;margin-top:var(--space-4)">Já tem conta? <a onClick="{{ goLogin }}" style="cursor:pointer">Entrar</a></p>
+      </div>
+    </sc-if>
+
+  </div>
+
+  <div style="background:var(--color-surface)">
+    <div style="height:16px;opacity:var(--ruffle-op);background:radial-gradient(circle at 14px 16px,transparent 13px,var(--color-bg) 13px) 0 0/28px 16px repeat-x"></div>
+    <div style="max-width:1180px;margin:0 auto;padding:var(--space-8) var(--space-6);width:100%;box-sizing:border-box;display:grid;grid-template-columns:1.4fr 1fr 1fr;gap:var(--space-8)">
+      <div>
+        <div style="font-family:var(--font-heading);font-weight:700;font-size:22px">Little Frill</div>
+        <div style="font-size:11px;letter-spacing:0.12em;text-transform:uppercase;color:color-mix(in srgb,var(--color-text) 55%,transparent);margin-top:4px">by Arrais Atelier</div>
+        <p style="font-style:italic;font-size:14px;color:color-mix(in srgb,var(--color-text) 65%,transparent);max-width:24em;margin-top:6px">Ateliê de costura em Lisboa. Feito à mão, feito com calma, desde 2019.</p>
+      </div>
+      <div style="display:flex;flex-direction:column;gap:6px;font-size:14px">
+        <span style="font-size:11px;letter-spacing:0.1em;text-transform:uppercase;color:color-mix(in srgb,var(--color-text) 55%,transparent)">Loja</span>
+        <a onClick="{{ goCatalogo }}" style="cursor:pointer">Catálogo</a>
+        <a onClick="{{ openAcessorios }}" style="cursor:pointer">Acessórios</a>
+        <a onClick="{{ goCart }}" style="cursor:pointer">Carrinho</a>
+      </div>
+      <div style="display:flex;flex-direction:column;gap:6px;font-size:14px">
+        <span style="font-size:11px;letter-spacing:0.1em;text-transform:uppercase;color:color-mix(in srgb,var(--color-text) 55%,transparent)">Conta</span>
+        <a onClick="{{ goLogin }}" style="cursor:pointer">Entrar</a>
+        <a onClick="{{ goRegisto }}" style="cursor:pointer">Criar conta</a>
+        <span style="color:color-mix(in srgb,var(--color-text) 55%,transparent);font-size:13px">Envios só para Portugal</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;paleta&quot;:{&quot;editor&quot;:&quot;enum&quot;,&quot;options&quot;:[&quot;Rosa&quot;,&quot;Lilás&quot;,&quot;Azul&quot;,&quot;Verde&quot;],&quot;default&quot;:&quot;Rosa&quot;,&quot;tsType&quot;:&quot;string&quot;,&quot;section&quot;:&quot;Aparência&quot;},&quot;folhos&quot;:{&quot;editor&quot;:&quot;boolean&quot;,&quot;default&quot;:true,&quot;tsType&quot;:&quot;boolean&quot;,&quot;section&quot;:&quot;Aparência&quot;},&quot;mostrarStock&quot;:{&quot;editor&quot;:&quot;boolean&quot;,&quot;default&quot;:true,&quot;tsType&quot;:&quot;boolean&quot;,&quot;section&quot;:&quot;Loja&quot;},&quot;envioGratis&quot;:{&quot;editor&quot;:&quot;int&quot;,&quot;default&quot;:60,&quot;min&quot;:20,&quot;max&quot;:150,&quot;step&quot;:5,&quot;unit&quot;:&quot;€&quot;,&quot;tsType&quot;:&quot;number&quot;,&quot;section&quot;:&quot;Loja&quot;},&quot;custoEnvio&quot;:{&quot;editor&quot;:&quot;float&quot;,&quot;default&quot;:4.5,&quot;min&quot;:0,&quot;max&quot;:15,&quot;step&quot;:0.5,&quot;unit&quot;:&quot;€&quot;,&quot;tsType&quot;:&quot;number&quot;,&quot;section&quot;:&quot;Loja&quot;}}">
+const CORES = {
+  rosa:   { label: 'Rosa',   lt: '#fbdce6', md: '#f2b8cd' },
+  azul:   { label: 'Azul',   lt: '#dbeaf6', md: '#aecfe6' },
+  lilas:  { label: 'Lilás',  lt: '#e8e1f7', md: '#c9bbe8' },
+  amarelo:{ label: 'Amarelo',lt: '#fbeec8', md: '#f4dc94' },
+  verde:  { label: 'Verde',  lt: '#e2efd8', md: '#bcdba9' }
+};
+const PADROES = { xadrez: 'Xadrez', floral: 'Floral', listras: 'Listras', liso: 'Liso' };
+const SECS = [
+  { key: 'acessorios', label: 'Acessórios' },
+  { key: 'bebe', label: 'Bebé' },
+  { key: 'mesa', label: 'Mesa' },
+  { key: 'banho', label: 'Banho' },
+  { key: 'cama', label: 'Cama' },
+  { key: 'cozinha', label: 'Cozinha' },
+  { key: 'animais', label: 'Pets' }
+];
+const PALETAS = {
+  'Rosa':  ['#fdeef3','#fadbe6','#f5bfd2','#e69ab5','#d4799a','#b25679','#994665','#7a3751','#4f2334','#c2668a'],
+  'Lilás': ['#f3f0fc','#e6e0f8','#d2c7f0','#b7a6e4','#9d89d4','#7c66b4','#65529a','#4e3f78','#332a4f','#8873c2'],
+  'Azul':  ['#eaf4fb','#d5e8f5','#b6d6ec','#8dbcdc','#6ba3c9','#4b83aa','#3c6d91','#2f5573','#1f3a4e','#4c85ad'],
+  'Verde': ['#eef5e6','#dcecce','#c2dcab','#a0c483','#84ac66','#688f4b','#55763c','#425c2f','#2b3d1f','#6b9450']
+};
+const P = [
+  { id:1, nome:'Bolsa Alentejo', tipo:'Bolsa', sec:'acessorios', preco:48, padrao:'xadrez', cor:'rosa', stock:6, medidas:'34 × 28 × 12 cm', tecido:'Algodão xadrez, forro de sarja', combina:[5,3], nova:true },
+  { id:2, nome:'Bolsa Tote de Linho', tipo:'Bolsa', sec:'acessorios', preco:42, padrao:'liso', cor:'verde', stock:3, medidas:'38 × 32 × 10 cm', tecido:'Linho lavado, alças de fita', combina:[4] },
+  { id:3, nome:'Necessaire Grande', tipo:'Necessaire', sec:'acessorios', preco:26, padrao:'floral', cor:'lilas', stock:12, medidas:'24 × 15 × 9 cm', tecido:'Algodão floral, interior impermeável', combina:[13,5], nova:true },
+  { id:4, nome:'Necessaire Pequena', tipo:'Necessaire', sec:'acessorios', preco:18, padrao:'xadrez', cor:'azul', stock:9, medidas:'18 × 11 × 7 cm', tecido:'Algodão xadrez, fecho de metal', combina:[8] },
+  { id:5, nome:'Porta-moedas Coração', tipo:'Porta-moedas', sec:'acessorios', preco:12, padrao:'floral', cor:'rosa', stock:20, medidas:'11 × 9 cm', tecido:'Retalhos de algodão, mola de metal', combina:[1] },
+  { id:6, nome:'Capa de Portátil 13"', tipo:'Capa', sec:'acessorios', preco:38, padrao:'xadrez', cor:'amarelo', stock:5, medidas:'34 × 24 cm', tecido:'Algodão acolchoado, velcro', combina:[4,5] },
+  { id:7, nome:'Capa de Portátil 15"', tipo:'Capa', sec:'acessorios', preco:42, padrao:'liso', cor:'azul', stock:4, medidas:'39 × 28 cm', tecido:'Linho acolchoado, velcro', combina:[3] },
+  { id:8, nome:'Capa de Kindle', tipo:'Capa', sec:'acessorios', preco:22, padrao:'floral', cor:'verde', stock:7, medidas:'19 × 14 cm', tecido:'Algodão floral, elástico de fita', combina:[5], nova:true },
+  { id:9, nome:'Babete com folho', tipo:'Bebé', sec:'bebe', preco:14, padrao:'xadrez', cor:'rosa', stock:15, medidas:'22 × 26 cm', tecido:'Algodão duplo, atrás em felpo', combina:[10] },
+  { id:10, nome:'Saco de fraldas', tipo:'Bebé', sec:'bebe', preco:34, padrao:'floral', cor:'lilas', stock:6, medidas:'32 × 26 × 10 cm', tecido:'Algodão floral, bolsos interiores', combina:[9,4] },
+  { id:11, nome:'Guardanapos (jogo de 4)', tipo:'Mesa', sec:'mesa', preco:24, padrao:'xadrez', cor:'verde', stock:10, medidas:'40 × 40 cm cada', tecido:'Linho, bainha à mão', combina:[12] },
+  { id:12, nome:'Caminho de mesa', tipo:'Mesa', sec:'mesa', preco:28, padrao:'liso', cor:'amarelo', stock:5, medidas:'140 × 40 cm', tecido:'Linho lavado', combina:[11], nova:true },
+  { id:13, nome:'Toalha de mão bordada', tipo:'Banho', sec:'banho', preco:16, padrao:'floral', cor:'azul', stock:11, medidas:'50 × 30 cm', tecido:'Felpo com barra de algodão', combina:[14] },
+  { id:14, nome:'Cesto de banho', tipo:'Banho', sec:'banho', preco:30, padrao:'xadrez', cor:'lilas', stock:3, medidas:'28 × 20 cm', tecido:'Algodão engomado, aro de vime', combina:[13] },
+  { id:15, nome:'Fronha com folho', tipo:'Cama', sec:'cama', preco:32, padrao:'floral', cor:'rosa', stock:8, medidas:'50 × 70 cm', tecido:'Percal de algodão', combina:[16] },
+  { id:16, nome:'Colcha de retalhos', tipo:'Cama', sec:'cama', preco:86, padrao:'xadrez', cor:'lilas', stock:2, medidas:'220 × 240 cm', tecido:'Retalhos de algodão, enchimento fino', combina:[15] },
+  { id:17, nome:'Luva de forno', tipo:'Cozinha', sec:'cozinha', preco:15, padrao:'listras', cor:'rosa', stock:14, medidas:'30 × 18 cm', tecido:'Algodão com manta térmica', combina:[18] },
+  { id:18, nome:'Avental com folho', tipo:'Cozinha', sec:'cozinha', preco:34, padrao:'floral', cor:'amarelo', stock:6, medidas:'Tamanho único, fitas 1,2 m', tecido:'Algodão floral, bolso frontal', combina:[17], nova:true },
+  { id:19, nome:'Cama para gato', tipo:'Pets', sec:'animais', preco:40, padrao:'xadrez', cor:'azul', stock:4, medidas:'50 × 40 cm', tecido:'Algodão xadrez, enchimento lavável', combina:[20] },
+  { id:20, nome:'Bandana para cão', tipo:'Pets', sec:'animais', preco:9, padrao:'listras', cor:'verde', stock:22, medidas:'Ajustável 26–40 cm', tecido:'Algodão, botão de pressão', combina:[19] }
+];
+
+class Component extends DCLogic {
+  state = {
+    screen: 'home', sec: 'tudo', padrao: 'tudo', cor: 'tudo', maxPreco: 90,
+    soStock: false, ordenar: 'destaque', prodId: 1, qty: 1, cart: [],
+    envio: 'ctt', pagamento: 'mbway', order: null, orderTotal: 0, orderItens: 0
+  };
+
+  rootRef = React.createRef();
+
+  componentDidMount() { this.applyTheme(); }
+  componentDidUpdate(prevProps) {
+    if (prevProps.paleta !== this.props.paleta || prevProps.folhos !== this.props.folhos) this.applyTheme();
+  }
+
+  applyTheme() {
+    const el = this.rootRef.current;
+    if (!el) return;
+    const r = el.style;
+    const ramp = PALETAS[this.props.paleta] || PALETAS['Rosa'];
+    [100,200,300,400,500,600,700,800,900].forEach((s, i) => r.setProperty('--color-accent-' + s, ramp[i]));
+    r.setProperty('--color-accent', ramp[9]);
+    r.setProperty('--ruffle-op', (this.props.folhos ?? true) ? '1' : '0');
+  }
+
+  get freeOver() { return this.props.envioGratis ?? 60; }
+  get envioCusto() { return this.props.custoEnvio ?? 4.5; }
+  get mostrarStock() { return this.props.mostrarStock ?? true; }
+
+  fmt(n) { return n.toFixed(2).replace('.', ',') + ' €'; }
+
+  swatch(p) {
+    const c = CORES[p.cor];
+    if (p.padrao === 'liso') return c.lt;
+    if (p.padrao === 'listras') return 'repeating-linear-gradient(90deg,' + c.md + ' 0 10px,' + c.lt + ' 10px 20px)';
+    if (p.padrao === 'xadrez') {
+      const s = 'color-mix(in srgb,' + c.md + ' 62%,transparent)';
+      return 'repeating-linear-gradient(90deg,' + s + ' 0 17px,transparent 17px 34px),' +
+             'repeating-linear-gradient(0deg,' + s + ' 0 17px,transparent 17px 34px),' + c.lt;
+    }
+    const petal = c.md, mid = 'color-mix(in srgb,' + c.md + ' 55%,#fffdf9)';
+    const f = (x, y, r) => 'radial-gradient(circle at ' + x + '% ' + y + '%,' + petal + ' 0 ' + r + 'px,transparent ' + (r + 0.6) + 'px) 0 0/42px 42px';
+    return [f(50, 36, 6), f(64, 50, 6), f(50, 64, 6), f(36, 50, 6),
+      'radial-gradient(circle at 50% 50%,' + mid + ' 0 3.5px,transparent 4px) 0 0/42px 42px',
+      'radial-gradient(circle at 50% 50%,' + petal + ' 0 3px,transparent 3.6px) 21px 21px/42px 42px',
+      c.lt].join(',');
+  }
+
+  secLabel(k) { const s = SECS.find(x => x.key === k); return s ? s.label : 'Tudo'; }
+
+  desc(p) {
+    return 'Cortada e cosida à mão no ateliê, em ' + p.tecido.toLowerCase() +
+      '. O padrão ' + PADROES[p.padrao].toLowerCase() + ' em ' + CORES[p.cor].label.toLowerCase() +
+      ' é lavado antes de costurar, por isso não encolhe depois. Cada peça leva a etiqueta cosida da casa.';
+  }
+
+  go(screen) { return () => this.setState({ screen: screen }); }
+
+  openProd(id) { return () => this.setState({ screen: 'produto', prodId: id, qty: 1 }); }
+
+  pickSec(key) { return () => this.setState({ screen: 'catalogo', sec: key }); }
+
+  add(id, n) {
+    return () => this.setState(s => {
+      const cart = s.cart.map(l => Object.assign({}, l));
+      const line = cart.find(l => l.id === id);
+      if (line) line.qty += (n || 1); else cart.push({ id: id, qty: n || 1 });
+      return { cart: cart, screen: 'carrinho' };
+    });
+  }
+
+  addPair(a, b) {
+    return () => this.setState(s => {
+      const cart = s.cart.map(l => Object.assign({}, l));
+      [a, b].forEach(id => {
+        const line = cart.find(l => l.id === id);
+        if (line) line.qty += 1; else cart.push({ id: id, qty: 1 });
+      });
+      return { cart: cart, screen: 'carrinho' };
+    });
+  }
+
+  bump(id, d) {
+    return () => this.setState(s => ({
+      cart: s.cart.map(l => l.id === id ? { id: l.id, qty: Math.max(1, l.qty + d) } : l)
+    }));
+  }
+
+  filtered() {
+    const s = this.state;
+    let out = P.filter(p =>
+      (s.sec === 'tudo' || p.sec === s.sec) &&
+      (s.padrao === 'tudo' || p.padrao === s.padrao) &&
+      (s.cor === 'tudo' || p.cor === s.cor) &&
+      p.preco <= s.maxPreco &&
+      (!s.soStock || p.stock > 0));
+    if (s.ordenar === 'baratos') out = out.slice().sort((a, b) => a.preco - b.preco);
+    else if (s.ordenar === 'caros') out = out.slice().sort((a, b) => b.preco - a.preco);
+    else if (s.ordenar === 'nome') out = out.slice().sort((a, b) => a.nome.localeCompare(b.nome, 'pt'));
+    return out;
+  }
+
+  cardVals(p) {
+    return {
+      nome: p.nome, tipo: p.tipo, precoFmt: this.fmt(p.preco), swatch: this.swatch(p),
+      lt: CORES[p.cor].lt, stockText: p.stock > 3 ? p.stock + ' prontas na prateleira' : 'só ' + p.stock + ' — última fornada',
+      badge: p.nova ? 'Novo' : 'Poucas', badgeVariant: p.nova ? 'tag-accent' : 'tag-accent-2',
+      badgeShow: (p.nova || p.stock <= 3) ? 'inline-flex' : 'none',
+      open: this.openProd(p.id), add: this.add(p.id, 1)
+    };
+  }
+
+  renderVals() {
+    const s = this.state, prods = this.filtered();
+    const prod = P.find(p => p.id === s.prodId) || P[0];
+    const lines = s.cart.map(l => {
+      const p = P.find(x => x.id === l.id);
+      return {
+        nome: p.nome, tipo: p.tipo, qty: l.qty, padraoLabel: PADROES[p.padrao],
+        precoFmt: this.fmt(p.preco), totalFmt: this.fmt(p.preco * l.qty), swatch: this.swatch(p),
+        open: this.openProd(p.id), menos: this.bump(p.id, -1), mais: this.bump(p.id, 1),
+        remover: () => this.setState(st => ({ cart: st.cart.filter(x => x.id !== p.id) }))
+      };
+    });
+    const subtotal = s.cart.reduce((t, l) => t + P.find(x => x.id === l.id).preco * l.qty, 0);
+    const gratis = subtotal >= this.freeOver;
+    const envioVal = s.envio === 'oficina' ? 0 : (gratis ? 0 : this.envioCusto);
+    const itens = s.cart.reduce((t, l) => t + l.qty, 0);
+
+    const sugestoes = prods.slice(0, 3).map(p => {
+      const par = P.find(x => x.id === (p.combina[0] || 5)) || P[4];
+      return {
+        nome: par.nome, par: p.nome, precoFmt: this.fmt(par.preco), swatch: this.swatch(par),
+        parTotalFmt: this.fmt(par.preco + p.preco), open: this.openProd(par.id), addPar: this.addPair(p.id, par.id)
+      };
+    });
+
+    return {
+      isHome: s.screen === 'home', isCat: s.screen === 'catalogo', isProd: s.screen === 'produto',
+      isCart: s.screen === 'carrinho', isMorada: s.screen === 'morada', isPag: s.screen === 'pagamento',
+      isDone: s.screen === 'feito', isLogin: s.screen === 'login', isReg: s.screen === 'registo',
+
+      goHome: this.go('home'), goCatalogo: () => this.setState({ screen: 'catalogo', sec: 'tudo' }),
+      goCart: this.go('carrinho'), goMorada: this.go('morada'), goPagamento: this.go('pagamento'),
+      goLogin: this.go('login'), goRegisto: this.go('registo'), openAcessorios: this.pickSec('acessorios'),
+
+      rootRef: this.rootRef,
+      cartLabel: 'Carrinho · ' + itens,
+      countCesto: itens === 1 ? '1 peça no carrinho' : itens + ' peças no carrinho',
+      freeFmt: this.fmt(this.freeOver),
+
+      secs: SECS.map(x => ({ label: x.label, open: this.pickSec(x.key), cur: s.screen === 'catalogo' && s.sec === x.key ? 'page' : 'false' })),
+      secTiles: SECS.map(x => {
+        const first = P.find(p => p.sec === x.key);
+        return {
+          label: x.label, count: P.filter(p => p.sec === x.key).length,
+          swatch: this.swatch(first), lt: CORES[first.cor].lt, open: this.pickSec(x.key)
+        };
+      }),
+      novidades: P.filter(p => p.nova).slice(0, 4).map(p => this.cardVals(p)),
+
+      catTitle: s.sec === 'tudo' ? 'Tudo o que está feito' : this.secLabel(s.sec),
+      countText: prods.length === 1 ? '1 peça' : prods.length + ' peças',
+      prods: prods.map(p => this.cardVals(p)),
+      vazio: prods.length === 0,
+      sugestoes: sugestoes,
+      secFilters: [{ key: 'tudo', label: 'Tudo' }].concat(SECS).map(x => ({
+        label: x.label,
+        count: x.key === 'tudo' ? P.length : P.filter(p => p.sec === x.key).length,
+        color: s.sec === x.key ? 'var(--color-accent-700)' : 'var(--color-text)',
+        cur: s.sec === x.key ? 'page' : 'false',
+        pick: this.pickSec(x.key)
+      })),
+      padroes: [{ k: 'tudo', label: 'Tudo' }].concat(Object.keys(PADROES).map(k => ({ k: k, label: PADROES[k] }))).map(x => ({
+        label: x.label,
+        variant: s.padrao === x.k ? 'tag-accent' : 'tag-neutral',
+        pick: () => this.setState({ padrao: x.k })
+      })),
+      cores: [{ k: 'tudo', label: 'Todas', md: 'var(--color-bg)' }].concat(Object.keys(CORES).map(k => ({ k: k, label: CORES[k].label, md: CORES[k].md }))).map(x => ({
+        label: x.label, md: x.md,
+        ring: s.cor === x.k ? 'var(--color-accent)' : 'var(--color-divider)',
+        pick: () => this.setState({ cor: x.k })
+      })),
+      maxPreco: s.maxPreco, maxPrecoFmt: this.fmt(s.maxPreco), soStock: s.soStock,
+      onPreco: e => this.setState({ maxPreco: Number(e.target.value) }),
+      onSoStock: e => this.setState({ soStock: e.target.checked }),
+      onOrdenar: e => this.setState({ ordenar: e.target.value }),
+      limpar: () => this.setState({ sec: 'tudo', padrao: 'tudo', cor: 'tudo', maxPreco: 90, soStock: false, ordenar: 'destaque' }),
+
+      prod: {
+        nome: prod.nome, tipo: prod.tipo,
+        secLabel: prod.tipo === this.secLabel(prod.sec) ? '' : ' · ' + this.secLabel(prod.sec),
+        precoFmt: this.fmt(prod.preco),
+        swatch: this.swatch(prod), lt: CORES[prod.cor].lt, desc: this.desc(prod),
+        padraoLabel: PADROES[prod.padrao], corLabel: CORES[prod.cor].label,
+        stockText: prod.stock + ' prontas', medidas: prod.medidas, tecido: prod.tecido
+      },
+      prodVistas: [
+        { swatch: this.swatch(prod) },
+        { swatch: CORES[prod.cor].lt },
+        { swatch: this.swatch({ padrao: 'listras', cor: prod.cor }) }
+      ],
+      prodCombina: prod.combina.map(id => P.find(p => p.id === id)).filter(Boolean).map(p => ({
+        nome: p.nome, precoFmt: this.fmt(p.preco), swatch: this.swatch(p),
+        open: this.openProd(p.id), add: this.add(p.id, 1)
+      })),
+      qty: s.qty,
+      qtyMenos: () => this.setState(st => ({ qty: Math.max(1, st.qty - 1) })),
+      qtyMais: () => this.setState(st => ({ qty: st.qty + 1 })),
+      addProd: this.add(prod.id, s.qty),
+
+      lines: lines, cartVazio: s.cart.length === 0, cartTem: s.cart.length > 0,
+      subtotalFmt: this.fmt(subtotal), envioFmt: envioVal === 0 ? 'grátis' : this.fmt(envioVal),
+      totalFmt: this.fmt(subtotal + envioVal),
+      envioNota: gratis ? 'Passou os ' + this.fmt(this.freeOver) + ' — envio nosso.' : 'Faltam ' + this.fmt(this.freeOver - subtotal) + ' para envio grátis.',
+
+      distritos: ['Aveiro','Beja','Braga','Bragança','Castelo Branco','Coimbra','Évora','Faro','Guarda','Leiria','Lisboa','Portalegre','Porto','Santarém','Setúbal','Viana do Castelo','Vila Real','Viseu','Açores','Madeira'],
+      onCP: () => {},
+      envios: [
+        { label: 'CTT Expresso', nota: '2 a 4 dias úteis, com seguimento', custoFmt: gratis ? 'grátis' : this.fmt(this.envioCusto), sel: s.envio === 'ctt', pick: () => this.setState({ envio: 'ctt' }) },
+        { label: 'Recolher no ateliê', nota: 'Lisboa, de terça a sábado, das 10h às 18h', custoFmt: 'grátis', sel: s.envio === 'oficina', pick: () => this.setState({ envio: 'oficina' }) }
+      ],
+      pagamentos: [
+        { label: 'MB WAY', nota: 'Pedido enviado para o seu telefone', sel: s.pagamento === 'mbway', pick: () => this.setState({ pagamento: 'mbway' }) },
+        { label: 'Multibanco', nota: 'Damos entidade e referência, válidas 3 dias', sel: s.pagamento === 'multibanco', pick: () => this.setState({ pagamento: 'multibanco' }) },
+        { label: 'Cartão', nota: 'Visa ou Mastercard', sel: s.pagamento === 'cartao', pick: () => this.setState({ pagamento: 'cartao' }) },
+        { label: 'Transferência bancária', nota: 'Enviamos o IBAN por e-mail', sel: s.pagamento === 'transferencia', pick: () => this.setState({ pagamento: 'transferencia' }) }
+      ],
+      mostrarCartao: s.pagamento === 'cartao',
+      mostrarMbway: s.pagamento === 'mbway',
+      finalizar: () => this.setState({
+        screen: 'feito', order: 'CA-' + (1200 + Math.floor(Math.random() * 800)),
+        orderTotal: subtotal + envioVal, orderItens: itens, cart: []
+      }),
+      order: s.order || 'CA-1204',
+      orderTotalFmt: this.fmt(s.orderTotal),
+      orderResumo: (s.orderItens === 1 ? '1 peça' : s.orderItens + ' peças') + ' · ' + (s.envio === 'oficina' ? 'recolha no ateliê, Lisboa' : 'CTT Expresso, 2 a 4 dias úteis'),
+      mostrarStockFlag: this.mostrarStock
+    };
+  }
+}
+
+</script>
+</body>
+</html>

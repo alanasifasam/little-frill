@@ -1,0 +1,17 @@
+services:
+  api:
+    build:
+      context: .
+      dockerfile: Api/Dockerfile
+    restart: unless-stopped
+    ports:
+      - "5038:8080"
+    environment:
+      ASPNETCORE_ENVIRONMENT: Development
+      ConnectionStrings__Default: "${NEON_CONNECTION_STRING}"
+      Jwt__Key: "${JWT_KEY}"
+    volumes:
+      - littlefrill-uploads-data:/app/wwwroot/uploads
+
+volumes:
+  littlefrill-uploads-data:
