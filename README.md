@@ -1,5 +1,9 @@
-🌐 Live Demo
-You can access the live application here: https://brave-grass-0a0f0f51e.3.azurestaticapps.net/
+## 🌐 Live Demo
+
+You can access the live application here: [**View the application**](https://brave-grass-0a0f0f51e.3.azurestaticapps.net/)
+
+> **Note:** The backend is hosted on Azure using a free-tier plan and may be temporarily offline. If the application is unavailable, please contact the creator to have the backend started.
+ https://brave-grass-0a0f0f51e.3.azurestaticapps.net/
 
 
 # Little Frill
