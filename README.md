@@ -1,3 +1,7 @@
+🌐 Live Demo
+You can access the live application here: https://brave-grass-0a0f0f51e.3.azurestaticapps.net/
+
+
 # Little Frill
 
 Full-stack e-commerce app for **Little Frill** (*by Arrais*) — a one-person sewing atelier
